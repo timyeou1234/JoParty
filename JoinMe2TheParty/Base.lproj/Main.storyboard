@@ -10,7 +10,7 @@
         <!--Home-->
         <scene sceneID="9AM-4a-wdP">
             <objects>
-                <viewController storyboardIdentifier="UserDetailView" id="oeQ-cQ-nC9" customClass="UserDetailViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserDetailView" id="oeQ-cQ-nC9" customClass="UserDetailViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tgj-zl-NbV"/>
                         <viewControllerLayoutGuide type="bottom" id="rak-eQ-DNj"/>
@@ -88,7 +88,7 @@
         <!--New Activity Date View Controller-->
         <scene sceneID="0Pd-sm-dOM">
             <objects>
-                <viewController id="QpQ-WE-5zB" customClass="NewActivityDateViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QpQ-WE-5zB" customClass="NewActivityDateViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lRo-pZ-DWO"/>
                         <viewControllerLayoutGuide type="bottom" id="TnR-nf-wsc"/>
@@ -109,10 +109,23 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1S-l1-8fi">
                                 <rect key="frame" x="546" y="518" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="save:" destination="QpQ-WE-5zB" eventType="touchUpInside" id="eea-TJ-pFF"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NqQ-zD-jAd">
                                 <rect key="frame" x="0.0" y="280" width="600" height="230"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="7gW-df-wEH">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7gW-df-wEH" id="W41-Od-PqV">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -128,6 +141,10 @@
                             <constraint firstAttribute="trailing" secondItem="NqQ-zD-jAd" secondAttribute="trailing" id="qev-Hi-kzz"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="datePiker" destination="LN9-fV-6F4" id="OR3-J7-Uad"/>
+                        <outlet property="tableView" destination="NqQ-zD-jAd" id="dtk-X0-wfF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wMJ-DF-yH1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -136,7 +153,7 @@
         <!--New Activity View Controller-->
         <scene sceneID="HOY-Mz-PwO">
             <objects>
-                <viewController id="TGU-eV-JbH" customClass="NewActivityViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="TGU-eV-JbH" customClass="NewActivityViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eTk-xt-1lc"/>
                         <viewControllerLayoutGuide type="bottom" id="nhr-KI-mHT"/>
@@ -223,6 +240,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bottomLayout" destination="win-Jl-Ajf" id="z3A-JN-QKL"/>
+                        <outlet property="dateButtonView" destination="9pF-96-JRy" id="9De-kH-zqt"/>
                         <outlet property="inputTextField" destination="vmn-HE-xGe" id="Mir-Sb-4sR"/>
                         <outlet property="userName" destination="nMc-vw-VAu" id="y3q-JW-qIk"/>
                         <outlet property="userPic" destination="LRW-zj-3ZM" id="yBJ-yM-lbe"/>
@@ -258,7 +276,7 @@
         <!--Post Wall View Controller-->
         <scene sceneID="brf-U4-bBZ">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="dIm-4X-aeO" customClass="PostWallViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="dIm-4X-aeO" customClass="PostWallViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kRr-WF-a2O"/>
                         <viewControllerLayoutGuide type="bottom" id="FgT-TC-jIy"/>
@@ -300,7 +318,7 @@
         <!--Comment View Controller-->
         <scene sceneID="YZN-HL-tZf">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BKq-PH-OYM" customClass="CommentViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BKq-PH-OYM" customClass="CommentViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dhx-J0-XHW"/>
                         <viewControllerLayoutGuide type="bottom" id="HHZ-nr-SD5"/>
@@ -384,7 +402,7 @@
         <!--Login View Controller-->
         <scene sceneID="rYe-WP-Mcc">
             <objects>
-                <viewController storyboardIdentifier="LoginView" id="7NZ-gA-OFH" customClass="LoginViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginView" id="7NZ-gA-OFH" customClass="LoginViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Orx-6j-4Ge"/>
                         <viewControllerLayoutGuide type="bottom" id="O0F-lN-wJv"/>

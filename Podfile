@@ -12,5 +12,6 @@ target 'JoinMe2TheParty' do
   pod 'Firebase/Storage'
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
+  pod 'SDWebImage', '~>3.8'
   
 end

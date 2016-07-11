@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 import Firebase
 import FBSDKCoreKit
 
@@ -49,7 +50,7 @@ class PostWallViewController: UIViewController {
         }
         
         self.getPost()
-        tableView.reloadData()
+//        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,28 +69,18 @@ class PostWallViewController: UIViewController {
             }
             if snapshot.value?.objectForKey("whoLike") != nil{
                 self.getPostWhoLike(snapshot.value?.objectForKey("postId") as! String, whoLike: snapshot.value?.objectForKey("whoLike") as! [String : Bool])
-//                self.getPostWhoLike(snapshot.value?.objectForKey("postId") as! String)
+                //                self.getPostWhoLike(snapshot.value?.objectForKey("postId") as! String)
             }
         })
     }
     
-    func getPostWhoLike(postId:String){
-        postRef.child("Post").child(postId).child("whoLike").observeEventType(.ChildAdded, withBlock: {
-            snapshot in
-            print("I'm Herererererererre")
-            print(snapshot.value)
-        })
-    }
-    
     func getPostWhoLike(postId:String, whoLike: [String: Bool]){
-//        print("Herererererererer:           " + postId + "\(whoLike)")
-        
+        //        print("Herererererererer:           " + postId + "\(whoLike)")
         if whoLike[uid!] == false{
             if postLikeList[postId] != nil{
-            var postDictHere:[String:Bool] = postLikeList[postId] as! [String:Bool]
-            postDictHere.removeValueForKey(uid!)
-            print("Hiiiiiiiiiiiiiiiiiii")
-            postLikeList[postId] = postDictHere
+                var postDictHere:[String:Bool] = postLikeList[postId] as! [String:Bool]
+                postDictHere.removeValueForKey(uid!)
+                postLikeList[postId] = postDictHere
                 print(postDictHere)
             }
         }else{
@@ -111,7 +102,7 @@ class PostWallViewController: UIViewController {
     
     func getComments(postid:String, comment: AnyObject){
         commentDict[postid] = comment
-//            print(commentDict[postid])
+        getUser(comment.objectForKey("uid") as! String)
         tableView.reloadData()
     }
     
@@ -126,8 +117,6 @@ class PostWallViewController: UIViewController {
                 self.userDict[uid] = user
                 self.tableView.reloadData()
             })
-        }else{
-            self.tableView.reloadData()
         }
     }
 }
@@ -160,66 +149,63 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
         cellForPost.rowAtSelectIndexpath = indexPath
         
         cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
-
-        if postDict.count == 0 {
-
-            tableView.reloadData()
-            cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
+        
+        //          設定喜歡人數
+        var likeNum = "0"
+        if postLikeList[String(indexPath.section)]?.count == nil{
         }else{
-            var likeNum = "0"
-            if postLikeList[String(indexPath.section)]?.count == nil{
+            //          設定愛心圖案
+            if postLikeList[String(indexPath.section)]?.objectForKey(uid) != nil{
+                cellForPost.isLiked = true
+                cellForPost.likeButtonOutlet.setImage(UIImage(named: "like-1"), forState: .Normal)
             }else{
-                if postLikeList[String(indexPath.section)]?.objectForKey(uid) != nil{
-                    cellForPost.isLiked = true
-                    cellForPost.likeButtonOutlet.setImage(UIImage(named: "like-1"), forState: .Normal)
-                }else{
-                    cellForPost.isLiked = false
-                    cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
-                }
-                likeNum = String(postLikeList[String(indexPath.section)]!.count!)
-                cellForPost.likeNum = postLikeList[String(indexPath.section)]!.count!
+                cellForPost.isLiked = false
+                cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
             }
-            
-            cellForPost.postId = postDict[String(indexPath.section)]?.objectForKey("postId") as? String
-
-            cellForPost.contextLable.text = postDict[String(indexPath.section)]?.objectForKey("context") as? String
-            cellForPost.timOfIssueLable.text = postDict[String(indexPath.section)]?.objectForKey("issueTime") as? String
-            
-            cellForPost.likeNumLable.text = likeNum + " 個人喜歡"
-            
-            
-                        
-            if userDict.count == 0 {
-                self.tableView.reloadData()
+            likeNum = String(postLikeList[String(indexPath.section)]!.count!)
+            cellForPost.likeNum = postLikeList[String(indexPath.section)]!.count!
+        }
+        //          設定日曆圖案
+        if postDict[String(indexPath.section)]?.objectForKey("activityDate") != nil{
+            cellForPost.dateButtonView.setImage(UIImage(named: "calendar-1"), forState: .Normal)
+        }else{
+            cellForPost.dateButtonView.setImage(UIImage(named: "calendar"), forState: .Normal)
+        }
+        //          設定貼文內容
+        cellForPost.postId = postDict[String(indexPath.section)]?.objectForKey("postId") as? String
+        
+        cellForPost.contextLable.text = postDict[String(indexPath.section)]?.objectForKey("context") as? String
+        cellForPost.timOfIssueLable.text = postDict[String(indexPath.section)]?.objectForKey("issueTime") as? String
+        
+        cellForPost.likeNumLable.text = likeNum + " 個人喜歡"
+        
+        
+        
+        
+        if postDict[String(indexPath.section)]?.objectForKey("uid") != nil{
+            let userUid = postDict[String(indexPath.section)]?.objectForKey("uid") as! String
+            if userDict[userUid] != nil{
+                let user = userDict[userUid]! as User
+                cellForPost.postNameLable.text = user.name
+                cellForPost.postUserImage.sd_setImageWithURL(user.photoUrl!)
             }else{
-                if postDict[String(indexPath.section)]?.objectForKey("uid") != nil{
-                    let userUid = postDict[String(indexPath.section)]?.objectForKey("uid") as! String
-                    if userDict[userUid] != nil{
-                        let user = userDict[userUid]! as User
-                        cellForPost.postNameLable.text = user.name
-                        cellForPost.postUserImage.image = UIImage(data: NSData(contentsOfURL: user.photoUrl!)!)
-                    }else{
-                        getUser(userUid)
-                    }
-                }
+                return cellForPost
             }
             
             if indexPath.row > 0{
-                if let comment = commentDict[String(indexPath.section)]{
-                    cellForComment.commentContex.text = comment.objectForKey("context") as? String
-                    if userDict[comment.objectForKey("uid") as! String] == nil{
-                        getUser(comment.objectForKey("uid") as! String)
-                    }else{
-                        let commentUser = userDict[comment.objectForKey("uid") as! String]! as User
-                        cellForComment.commentNameLable.text = commentUser.name
-                        cellForComment.commentImage.image = UIImage(data: NSData(contentsOfURL: commentUser.photoUrl!)!)
-                        return cellForComment
-                    }
+            if let comment = commentDict[String(indexPath.section)]{
+                cellForComment.commentContex.text = comment.objectForKey("context") as? String
+                if userDict[comment.objectForKey("uid") as! String] == nil{
                 }else{
-                    tableView.reloadData()
+                    let commentUser = userDict[comment.objectForKey("uid") as! String]! as User
+                    cellForComment.commentNameLable.text = commentUser.name
+                    cellForComment.commentImage.image = UIImage(data: NSData(contentsOfURL: commentUser.photoUrl!)!)
+                    return cellForComment
+                }
                 }
             }
         }
+        cellForPost.spinnerView.hidden = true
         return cellForPost
     }
     
@@ -250,12 +236,12 @@ extension PostWallViewController:ShowCommentDelegate, LikeThisPostDelegate {
         if cell.isLiked == true{
             cell.likeButtonOutlet.setImage(UIImage(named: "like-1"), forState: .Normal)
             postRef.child("Post").child(postId!).child("whoLike").child(uid!).removeValue()
-//            cell.isLiked = false
+            //            cell.isLiked = false
             self.getPostWhoLike(postId!, whoLike: [uid!: false])
         }else{
             cell.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
             postRef.child("Post").child(postId!).child("whoLike").child(uid!).setValue(true)
-//            cell.isLiked = true
+            //            cell.isLiked = true
             self.getPostWhoLike(postId!, whoLike: [uid!: true])
         }
         tableView.reloadSections(NSIndexSet(index: Int(cell.postId!)!), withRowAnimation: .Automatic)

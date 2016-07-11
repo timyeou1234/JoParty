@@ -27,6 +27,9 @@ class PostTableViewCell: UITableViewCell {
 
     @IBOutlet weak var postUserImage: UIImageView!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var spinnerView: UIView!
+    @IBOutlet weak var dateButtonView: UIButton!
     @IBOutlet weak var likeButtonOutlet: UIButton!
     @IBAction func likeButton(sender: AnyObject) {
         likeThisPostDelegate?.likeThisPost(self)
@@ -47,7 +50,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var contextLable: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        spinner.startAnimating()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
