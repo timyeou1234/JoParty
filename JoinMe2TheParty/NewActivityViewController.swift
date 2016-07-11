@@ -20,14 +20,24 @@ class NewActivityViewController: UIViewController {
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var inputTextField: UITextView!
+    @IBOutlet weak var bottomLayout: NSLayoutConstraint!
     
-    @IBAction func postButton(sender: AnyObject) {
+    @IBAction func postBackButton(sender: AnyObject) {
         let dataRef = FIRDatabase.database().reference()
-        let postList = ["context": inputTextField.text, "likeNum": "0", "uid": uid, "postId": "\(postIdAtCurrent!)"]
+        let date = NSDate()
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy年M月d日H:m"
+        let dateString = dateFormatter.stringFromDate(date)
+        let postList = ["context": inputTextField.text, "likeNum": "0", "uid": uid, "postId": "\(postIdAtCurrent!)", "issueTime": dateString]
         let childUpdates = ["/Post/\(postIdAtCurrent!)":postList]
         dataRef.updateChildValues(childUpdates)
+        navigationController?.popViewControllerAnimated(true)
     }
-    
+    @IBAction func dismissKeyBoard(sender: AnyObject) {
+        view.endEditing(true)
+        self.bottomLayout.constant = 8
+    }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         userPic.backgroundColor = UIColor.grayColor()
@@ -36,8 +46,9 @@ class NewActivityViewController: UIViewController {
             uid = user.uid
             
             userName.text = name
-            
             CurrentUser.user.name = name
+            
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentViewController.keyboardWasShown(_:)), name: UIKeyboardWillShowNotification, object: nil)
             
             let storage = FIRStorage.storage()
             let storageRef = storage.referenceForURL("gs://joinme2theparty.appspot.com")
@@ -59,6 +70,15 @@ class NewActivityViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         self.userPic.layer.cornerRadius = userPic.bounds.width/2
         self.userPic.clipsToBounds = true
+    }
+    
+    func keyboardWasShown(notification: NSNotification) {
+        var info = notification.userInfo!
+        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        
+        UIView.animateWithDuration(0.1, animations: { () -> Void in
+            self.bottomLayout.constant = keyboardFrame.size.height - 50
+        })
     }
 
     override func didReceiveMemoryWarning() {

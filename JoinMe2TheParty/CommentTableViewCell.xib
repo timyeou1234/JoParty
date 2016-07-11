@@ -9,14 +9,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="171" id="jk2-aS-7cz" userLabel="CommentTableViewCell" customClass="CommentTableViewCell" customModule="JoinMe2TheParty" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="171" id="jk2-aS-7cz" userLabel="CommentTableViewCell" customClass="CommentTableViewCell" customModule="JoParty" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="491" height="171"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" tableViewCell="jk2-aS-7cz" id="9MN-Ux-QYe">
                 <rect key="frame" x="0.0" y="0.0" width="491" height="171"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Qd-l4-1Pa" customClass="TableViewCell" customModule="JoinMe2TheParty" customModuleProvider="target">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Qd-l4-1Pa" customClass="TableViewCell" customModule="JoParty" customModuleProvider="target">
                         <rect key="frame" x="4" y="4" width="483" height="163"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="內容" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxa-yO-Dzr">
@@ -91,28 +91,49 @@
                                     <constraint firstAttribute="width" constant="49" id="NLv-NI-pPs"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ifn-08-OgK">
+                                <rect key="frame" x="63" y="107" width="19" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="310-jK-g87"/>
+                                    <constraint firstAttribute="width" constant="19" id="F8B-oi-EX6"/>
+                                </constraints>
+                                <state key="normal" image="calendar"/>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXH-uw-QaK">
+                                <rect key="frame" x="36" y="107" width="19" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="2b9-eq-r9u"/>
+                                    <constraint firstAttribute="width" constant="19" id="izv-e8-T2v"/>
+                                </constraints>
+                                <state key="normal" image="map_marker"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="KXH-uw-QaK" firstAttribute="baseline" secondItem="wcJ-Jo-4vm" secondAttribute="baseline" id="3az-7w-bvU"/>
                             <constraint firstItem="Hoz-HL-St2" firstAttribute="top" secondItem="LaH-Q7-nqx" secondAttribute="bottom" constant="17" id="4mF-LR-O85"/>
                             <constraint firstItem="LaH-Q7-nqx" firstAttribute="top" secondItem="9Qd-l4-1Pa" secondAttribute="top" constant="8" id="9zj-Je-ALZ"/>
                             <constraint firstItem="yxa-yO-Dzr" firstAttribute="top" secondItem="nWX-A4-H8Y" secondAttribute="bottom" constant="8" id="Aws-iC-gBg"/>
                             <constraint firstItem="Hoz-HL-St2" firstAttribute="leading" secondItem="nWX-A4-H8Y" secondAttribute="trailing" constant="8" id="BFG-7N-ie5"/>
                             <constraint firstAttribute="trailing" secondItem="4M0-2i-CjQ" secondAttribute="trailing" id="Dxl-Gb-S8E"/>
                             <constraint firstItem="qU9-Lb-3M4" firstAttribute="top" secondItem="yxa-yO-Dzr" secondAttribute="bottom" constant="15" id="GMK-BQ-r9Y"/>
+                            <constraint firstItem="KXH-uw-QaK" firstAttribute="leading" secondItem="wcJ-Jo-4vm" secondAttribute="trailing" constant="8" id="H3r-t9-qGR"/>
                             <constraint firstItem="LaH-Q7-nqx" firstAttribute="leading" secondItem="nWX-A4-H8Y" secondAttribute="trailing" constant="8" id="Ixi-ou-IMH"/>
                             <constraint firstItem="PBh-rT-ZXv" firstAttribute="leading" secondItem="9Qd-l4-1Pa" secondAttribute="leading" id="MsF-ZP-prV"/>
+                            <constraint firstItem="Ifn-08-OgK" firstAttribute="baseline" secondItem="wcJ-Jo-4vm" secondAttribute="baseline" id="OFF-uA-gpB"/>
                             <constraint firstItem="yxa-yO-Dzr" firstAttribute="leading" secondItem="9Qd-l4-1Pa" secondAttribute="leading" constant="9" id="Ob6-Sx-D1r"/>
                             <constraint firstItem="PBh-rT-ZXv" firstAttribute="top" secondItem="qU9-Lb-3M4" secondAttribute="bottom" constant="9" id="Q1a-g2-Ubb"/>
                             <constraint firstItem="PBh-rT-ZXv" firstAttribute="width" secondItem="9Qd-l4-1Pa" secondAttribute="width" multiplier="1:3" id="XA4-GE-vmo"/>
                             <constraint firstItem="wcJ-Jo-4vm" firstAttribute="leading" secondItem="9Qd-l4-1Pa" secondAttribute="leading" constant="9" id="Ypc-Ss-Dq3"/>
                             <constraint firstItem="UzK-Rv-LXw" firstAttribute="baseline" secondItem="PBh-rT-ZXv" secondAttribute="baseline" id="bYc-Lx-DAQ"/>
+                            <constraint firstItem="Ifn-08-OgK" firstAttribute="leading" secondItem="KXH-uw-QaK" secondAttribute="trailing" constant="8" id="cFS-tX-5Re"/>
                             <constraint firstItem="UzK-Rv-LXw" firstAttribute="leading" secondItem="PBh-rT-ZXv" secondAttribute="trailing" id="d8l-1L-yzM"/>
                             <constraint firstAttribute="bottom" secondItem="PBh-rT-ZXv" secondAttribute="bottom" constant="1.5" id="gfl-Ko-0uS"/>
                             <constraint firstItem="4M0-2i-CjQ" firstAttribute="leading" secondItem="UzK-Rv-LXw" secondAttribute="trailing" id="hNV-Rs-XG1"/>
                             <constraint firstItem="wcJ-Jo-4vm" firstAttribute="top" secondItem="yxa-yO-Dzr" secondAttribute="bottom" constant="9" id="iRs-HU-lMt"/>
                             <constraint firstAttribute="trailing" secondItem="qU9-Lb-3M4" secondAttribute="trailing" constant="8" id="lbA-I4-gHg"/>
                             <constraint firstItem="nWX-A4-H8Y" firstAttribute="leading" secondItem="9Qd-l4-1Pa" secondAttribute="leading" constant="8" id="nuC-S0-dol"/>
+                            <constraint firstItem="Ifn-08-OgK" firstAttribute="leading" secondItem="KXH-uw-QaK" secondAttribute="trailing" constant="8" id="qEi-Gh-13J"/>
                             <constraint firstItem="4M0-2i-CjQ" firstAttribute="baseline" secondItem="PBh-rT-ZXv" secondAttribute="baseline" id="r9q-fs-4Zw"/>
                             <constraint firstAttribute="trailing" secondItem="yxa-yO-Dzr" secondAttribute="trailing" constant="8" id="tD8-5n-xu2"/>
                             <constraint firstItem="yxa-yO-Dzr" firstAttribute="top" secondItem="Hoz-HL-St2" secondAttribute="bottom" constant="5" id="tMF-9f-tUc"/>
@@ -120,6 +141,11 @@
                             <constraint firstItem="4M0-2i-CjQ" firstAttribute="width" secondItem="9Qd-l4-1Pa" secondAttribute="width" multiplier="1:3" id="yz7-ha-Xt8"/>
                             <constraint firstItem="nWX-A4-H8Y" firstAttribute="top" secondItem="9Qd-l4-1Pa" secondAttribute="top" constant="8" id="zcs-Jv-Fkk"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="cFS-tX-5Re"/>
+                            </mask>
+                        </variation>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -132,6 +158,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="contextLable" destination="yxa-yO-Dzr" id="suE-qF-jCA"/>
+                <outlet property="likeButtonOutlet" destination="wcJ-Jo-4vm" id="fxf-hN-LZB"/>
                 <outlet property="likeNumLable" destination="qU9-Lb-3M4" id="Fzn-Rl-s9h"/>
                 <outlet property="postNameLable" destination="LaH-Q7-nqx" id="fMr-QV-CkA"/>
                 <outlet property="postUserImage" destination="nWX-A4-H8Y" id="mu7-hm-VGb"/>
@@ -141,6 +168,8 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="calendar" width="25" height="25"/>
         <image name="like" width="75" height="75"/>
+        <image name="map_marker" width="25" height="25"/>
     </resources>
 </document>

@@ -12,14 +12,22 @@ protocol DoCommentDelegate:class {
     func doComment()
 }
 
+protocol CommentLikeThisPostDelegate:class {
+    func likeThisPost(cell:CommentTableViewCell)
+}
 
 class CommentTableViewCell: UITableViewCell {
     
     var doCommentDelegate:DoCommentDelegate?
+    var commentLikeThisPostDelegate:CommentLikeThisPostDelegate?
+    var postId:String?
+    var isLiked:Bool?
     
+    @IBOutlet weak var likeButtonOutlet: UIButton!
     @IBOutlet weak var postUserImage: UIImageView!
     
     @IBAction func likeButton(sender: AnyObject) {
+        commentLikeThisPostDelegate?.likeThisPost(self)
     }
     @IBAction func joinButton(sender: AnyObject) {
     }

@@ -21,7 +21,9 @@ class PostTableViewCell: UITableViewCell {
     weak var likeThisPostDelegate:LikeThisPostDelegate?
     
     var isLiked:Bool?
+    var likeNum:Int?
     var postId:String?
+    var rowAtSelectIndexpath:NSIndexPath?
 
     @IBOutlet weak var postUserImage: UIImageView!
     

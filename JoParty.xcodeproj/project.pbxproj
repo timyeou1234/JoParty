@@ -21,6 +21,7 @@
 		6B18DBB61D2B8C4C00AC40D7 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B18DBB51D2B8C4C00AC40D7 /* CommentViewController.swift */; };
 		6B18DBBB1D2CC3C500AC40D7 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B18DBB91D2CC3C500AC40D7 /* CommentTableViewCell.swift */; };
 		6B18DBBC1D2CC3C500AC40D7 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B18DBBA1D2CC3C500AC40D7 /* CommentTableViewCell.xib */; };
+		6B18DBBF1D333F7000AC40D7 /* NewActivityDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B18DBBE1D333F7000AC40D7 /* NewActivityDateViewController.swift */; };
 		6BE8BBEB1D2275F100B1F326 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE8BBEA1D2275F100B1F326 /* CurrentUser.swift */; };
 		6BE8BBEE1D23B0CD00B1F326 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE8BBED1D23B0CD00B1F326 /* UserDetailViewController.swift */; };
 		6BE8BBF11D24F7D000B1F326 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE8BBF01D24F7D000B1F326 /* Post.swift */; };
@@ -32,7 +33,7 @@
 
 /* Begin PBXFileReference section */
 		22BFFFB274354787BB5A9F65 /* Pods-JoinMe2TheParty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JoinMe2TheParty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JoinMe2TheParty/Pods-JoinMe2TheParty.debug.xcconfig"; sourceTree = "<group>"; };
-		6B0D795E1D1E9AAA00DDCB47 /* JoinMe2TheParty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JoinMe2TheParty.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B0D795E1D1E9AAA00DDCB47 /* JoParty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JoParty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B0D79611D1E9AAA00DDCB47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B0D79661D1E9AAA00DDCB47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6B0D79691D1E9AAA00DDCB47 /* JoinMe2TheParty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JoinMe2TheParty.xcdatamodel; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		6B18DBB51D2B8C4C00AC40D7 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		6B18DBB91D2CC3C500AC40D7 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		6B18DBBA1D2CC3C500AC40D7 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
+		6B18DBBE1D333F7000AC40D7 /* NewActivityDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewActivityDateViewController.swift; sourceTree = "<group>"; };
 		6BE8BBEA1D2275F100B1F326 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		6BE8BBED1D23B0CD00B1F326 /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		6BE8BBF01D24F7D000B1F326 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -92,7 +94,7 @@
 		6B0D795F1D1E9AAA00DDCB47 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6B0D795E1D1E9AAA00DDCB47 /* JoinMe2TheParty.app */,
+				6B0D795E1D1E9AAA00DDCB47 /* JoParty.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -124,7 +126,7 @@
 				6BE8BBF41D27B53A00B1F326 /* PostCommentTableViewCell.swift */,
 				6BE8BBF51D27B53A00B1F326 /* PostCommentTableViewCell.xib */,
 				6B18DBB71D2CBE5400AC40D7 /* Comment */,
-				6BE8BC251D2A56ED00B1F326 /* NewActivityViewController.swift */,
+				6B18DBBD1D333F3E00AC40D7 /* NewActivity */,
 			);
 			name = Post;
 			sourceTree = "<group>";
@@ -137,6 +139,15 @@
 				6B18DBBA1D2CC3C500AC40D7 /* CommentTableViewCell.xib */,
 			);
 			name = Comment;
+			sourceTree = "<group>";
+		};
+		6B18DBBD1D333F3E00AC40D7 /* NewActivity */ = {
+			isa = PBXGroup;
+			children = (
+				6BE8BC251D2A56ED00B1F326 /* NewActivityViewController.swift */,
+				6B18DBBE1D333F7000AC40D7 /* NewActivityDateViewController.swift */,
+			);
+			name = NewActivity;
 			sourceTree = "<group>";
 		};
 		6BE8BBE91D2275C100B1F326 /* Login */ = {
@@ -176,9 +187,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6B0D795D1D1E9AAA00DDCB47 /* JoinMe2TheParty */ = {
+		6B0D795D1D1E9AAA00DDCB47 /* JoParty */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6B0D79731D1E9AAA00DDCB47 /* Build configuration list for PBXNativeTarget "JoinMe2TheParty" */;
+			buildConfigurationList = 6B0D79731D1E9AAA00DDCB47 /* Build configuration list for PBXNativeTarget "JoParty" */;
 			buildPhases = (
 				40E42DED4D2C5C0C704B2635 /* [CP] Check Pods Manifest.lock */,
 				6B0D795A1D1E9AAA00DDCB47 /* Sources */,
@@ -191,9 +202,9 @@
 			);
 			dependencies = (
 			);
-			name = JoinMe2TheParty;
+			name = JoParty;
 			productName = JoinMe2TheParty;
-			productReference = 6B0D795E1D1E9AAA00DDCB47 /* JoinMe2TheParty.app */;
+			productReference = 6B0D795E1D1E9AAA00DDCB47 /* JoParty.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -208,11 +219,10 @@
 				TargetAttributes = {
 					6B0D795D1D1E9AAA00DDCB47 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = FBND9EJP2C;
 					};
 				};
 			};
-			buildConfigurationList = 6B0D79591D1E9AAA00DDCB47 /* Build configuration list for PBXProject "JoinMe2TheParty" */;
+			buildConfigurationList = 6B0D79591D1E9AAA00DDCB47 /* Build configuration list for PBXProject "JoParty" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -225,7 +235,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6B0D795D1D1E9AAA00DDCB47 /* JoinMe2TheParty */,
+				6B0D795D1D1E9AAA00DDCB47 /* JoParty */,
 			);
 		};
 /* End PBXProject section */
@@ -306,6 +316,7 @@
 				6BE8BBF11D24F7D000B1F326 /* Post.swift in Sources */,
 				6BE8BBEB1D2275F100B1F326 /* CurrentUser.swift in Sources */,
 				6BE8BBF31D250C8500B1F326 /* User.swift in Sources */,
+				6B18DBBF1D333F7000AC40D7 /* NewActivityDateViewController.swift in Sources */,
 				6B0D796A1D1E9AAA00DDCB47 /* JoinMe2TheParty.xcdatamodeld in Sources */,
 				6BE8BBF61D27B53A00B1F326 /* PostCommentTableViewCell.swift in Sources */,
 				6B18DBBB1D2CC3C500AC40D7 /* CommentTableViewCell.swift in Sources */,
@@ -433,8 +444,8 @@
 				INFOPLIST_FILE = JoinMe2TheParty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Mute.JoinMe2TheParty;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Mute.JoParty;
+				PRODUCT_NAME = JoParty;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -449,8 +460,8 @@
 				INFOPLIST_FILE = JoinMe2TheParty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Mute.JoinMe2TheParty;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Mute.JoParty;
+				PRODUCT_NAME = JoParty;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -458,7 +469,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6B0D79591D1E9AAA00DDCB47 /* Build configuration list for PBXProject "JoinMe2TheParty" */ = {
+		6B0D79591D1E9AAA00DDCB47 /* Build configuration list for PBXProject "JoParty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6B0D79711D1E9AAA00DDCB47 /* Debug */,
@@ -467,7 +478,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6B0D79731D1E9AAA00DDCB47 /* Build configuration list for PBXNativeTarget "JoinMe2TheParty" */ = {
+		6B0D79731D1E9AAA00DDCB47 /* Build configuration list for PBXNativeTarget "JoParty" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6B0D79741D1E9AAA00DDCB47 /* Debug */,

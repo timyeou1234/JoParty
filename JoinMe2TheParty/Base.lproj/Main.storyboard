@@ -10,7 +10,7 @@
         <!--Home-->
         <scene sceneID="9AM-4a-wdP">
             <objects>
-                <viewController storyboardIdentifier="UserDetailView" id="oeQ-cQ-nC9" customClass="UserDetailViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserDetailView" id="oeQ-cQ-nC9" customClass="UserDetailViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tgj-zl-NbV"/>
                         <viewControllerLayoutGuide type="bottom" id="rak-eQ-DNj"/>
@@ -85,10 +85,58 @@
             </objects>
             <point key="canvasLocation" x="182" y="56"/>
         </scene>
+        <!--New Activity Date View Controller-->
+        <scene sceneID="0Pd-sm-dOM">
+            <objects>
+                <viewController id="QpQ-WE-5zB" customClass="NewActivityDateViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lRo-pZ-DWO"/>
+                        <viewControllerLayoutGuide type="bottom" id="TnR-nf-wsc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bx1-JF-JSh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="30" translatesAutoresizingMaskIntoConstraints="NO" id="LN9-fV-6F4">
+                                <rect key="frame" x="0.0" y="64" width="600" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="489894248.15896499">
+                                    <!--2016-07-11 01:44:08 +0000-->
+                                </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="-946731600">
+                                    <!--1971-01-01 11:00:00 +0000-->
+                                </date>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1S-l1-8fi">
+                                <rect key="frame" x="546" y="518" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NqQ-zD-jAd">
+                                <rect key="frame" x="0.0" y="280" width="600" height="230"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NqQ-zD-jAd" firstAttribute="top" secondItem="LN9-fV-6F4" secondAttribute="bottom" id="KCd-G5-5iJ"/>
+                            <constraint firstItem="NqQ-zD-jAd" firstAttribute="leading" secondItem="bx1-JF-JSh" secondAttribute="leading" id="MhJ-T9-1Zx"/>
+                            <constraint firstItem="LN9-fV-6F4" firstAttribute="top" secondItem="lRo-pZ-DWO" secondAttribute="bottom" id="NTo-L0-nGb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LN9-fV-6F4" secondAttribute="trailing" constant="-20" id="Q3n-RW-gT2"/>
+                            <constraint firstAttribute="trailing" secondItem="R1S-l1-8fi" secondAttribute="trailing" constant="8" id="WST-gA-C54"/>
+                            <constraint firstItem="LN9-fV-6F4" firstAttribute="leading" secondItem="bx1-JF-JSh" secondAttribute="leadingMargin" constant="-20" id="fhg-Q4-fRS"/>
+                            <constraint firstItem="TnR-nf-wsc" firstAttribute="top" secondItem="R1S-l1-8fi" secondAttribute="bottom" constant="8" id="jMq-kZ-8An"/>
+                            <constraint firstItem="R1S-l1-8fi" firstAttribute="top" secondItem="NqQ-zD-jAd" secondAttribute="bottom" constant="8" id="mUA-Jj-UwW"/>
+                            <constraint firstAttribute="trailing" secondItem="NqQ-zD-jAd" secondAttribute="trailing" id="qev-Hi-kzz"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wMJ-DF-yH1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="897" y="-1350"/>
+        </scene>
         <!--New Activity View Controller-->
         <scene sceneID="HOY-Mz-PwO">
             <objects>
-                <viewController id="TGU-eV-JbH" customClass="NewActivityViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="TGU-eV-JbH" customClass="NewActivityViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eTk-xt-1lc"/>
                         <viewControllerLayoutGuide type="bottom" id="nhr-KI-mHT"/>
@@ -110,56 +158,107 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Put Text Here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vmn-HE-xGe">
-                                <rect key="frame" x="116" y="101" width="456" height="409"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vmn-HE-xGe">
+                                <rect key="frame" x="116" y="101" width="456" height="414"/>
                                 <color key="backgroundColor" red="0.88054237565445026" green="0.88054237565445026" blue="0.88054237565445026" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYW-bI-J5L">
-                                <rect key="frame" x="541" y="518" width="31" height="30"/>
-                                <state key="normal" title="Post"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OGf-hm-0Jk">
+                                <rect key="frame" x="493" y="523" width="79" height="25"/>
+                                <state key="normal" title="Button" image="map_marker"/>
                                 <connections>
-                                    <action selector="postButton:" destination="TGU-eV-JbH" eventType="touchUpInside" id="Ixa-Zt-dIj"/>
+                                    <segue destination="gvh-X0-9g0" kind="show" id="hUk-rU-J05"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9pF-96-JRy">
+                                <rect key="frame" x="422" y="523" width="63" height="25"/>
+                                <state key="normal" title="Date" image="calendar"/>
+                                <connections>
+                                    <segue destination="QpQ-WE-5zB" kind="show" id="lOh-cl-xZf"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="QYW-bI-J5L" secondAttribute="trailing" constant="8" id="0tH-ym-FUx"/>
+                            <constraint firstItem="OGf-hm-0Jk" firstAttribute="top" secondItem="vmn-HE-xGe" secondAttribute="bottom" constant="8" id="1qk-ff-Zaf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vmn-HE-xGe" secondAttribute="trailing" constant="8" id="48I-wZ-OnD"/>
                             <constraint firstItem="nhr-KI-mHT" firstAttribute="top" secondItem="vmn-HE-xGe" secondAttribute="bottom" constant="8" id="9Dg-6G-auh"/>
+                            <constraint firstAttribute="trailing" secondItem="OGf-hm-0Jk" secondAttribute="trailing" constant="28" id="CHJ-Ov-kn2"/>
                             <constraint firstItem="vmn-HE-xGe" firstAttribute="leading" secondItem="LRW-zj-3ZM" secondAttribute="trailing" constant="8" id="K6x-D7-oLr"/>
                             <constraint firstItem="LRW-zj-3ZM" firstAttribute="leading" secondItem="l7Z-Vq-Rvw" secondAttribute="leading" constant="8" id="NCg-Km-agJ"/>
+                            <constraint firstItem="nhr-KI-mHT" firstAttribute="top" secondItem="vmn-HE-xGe" secondAttribute="bottom" constant="46" id="Q2f-0v-Aro"/>
                             <constraint firstItem="vmn-HE-xGe" firstAttribute="top" secondItem="nMc-vw-VAu" secondAttribute="bottom" constant="8" id="QiB-RM-fN6"/>
+                            <constraint firstItem="nhr-KI-mHT" firstAttribute="top" secondItem="9pF-96-JRy" secondAttribute="bottom" constant="8" id="erW-pL-Ec4"/>
                             <constraint firstItem="LRW-zj-3ZM" firstAttribute="top" secondItem="eTk-xt-1lc" secondAttribute="bottom" constant="8" id="gLn-lN-gfN"/>
-                            <constraint firstItem="nhr-KI-mHT" firstAttribute="top" secondItem="QYW-bI-J5L" secondAttribute="bottom" constant="8" id="i6d-aw-Vk3"/>
+                            <constraint firstItem="9pF-96-JRy" firstAttribute="baseline" secondItem="OGf-hm-0Jk" secondAttribute="baseline" id="j1C-U1-uUX"/>
+                            <constraint firstItem="OGf-hm-0Jk" firstAttribute="leading" secondItem="9pF-96-JRy" secondAttribute="trailing" constant="8" id="jRF-RB-1bp"/>
                             <constraint firstItem="nMc-vw-VAu" firstAttribute="leading" secondItem="LRW-zj-3ZM" secondAttribute="trailing" constant="8" id="nE6-k2-XgC"/>
                             <constraint firstItem="nMc-vw-VAu" firstAttribute="top" secondItem="eTk-xt-1lc" secondAttribute="bottom" constant="8" id="p2H-Vk-6Aw"/>
-                            <constraint firstItem="QYW-bI-J5L" firstAttribute="top" secondItem="vmn-HE-xGe" secondAttribute="bottom" constant="8" id="wn7-Ol-wAh"/>
+                            <constraint firstItem="nhr-KI-mHT" firstAttribute="top" secondItem="OGf-hm-0Jk" secondAttribute="bottom" constant="8" id="win-Jl-Ajf"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="9Dg-6G-auh"/>
+                                <exclude reference="Q2f-0v-Aro"/>
+                                <exclude reference="erW-pL-Ec4"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="wgc-W1-T7q" appends="YES" id="KH1-dz-ppe"/>
+                        </connections>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="5lK-DU-3Kl">
+                        <barButtonItem key="rightBarButtonItem" title="Post It" id="oGL-Wc-anb">
+                            <connections>
+                                <action selector="postBackButton:" destination="TGU-eV-JbH" id="41w-kV-FO0"/>
+                            </connections>
+                        </barButtonItem>
+                        <connections>
+                            <outlet property="rightBarButtonItem" destination="oGL-Wc-anb" id="5K5-8D-cPO"/>
+                        </connections>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="bottomLayout" destination="win-Jl-Ajf" id="z3A-JN-QKL"/>
                         <outlet property="inputTextField" destination="vmn-HE-xGe" id="Mir-Sb-4sR"/>
                         <outlet property="userName" destination="nMc-vw-VAu" id="y3q-JW-qIk"/>
                         <outlet property="userPic" destination="LRW-zj-3ZM" id="yBJ-yM-lbe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vqa-aP-xKW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="wgc-W1-T7q">
+                    <connections>
+                        <action selector="dismissKeyBoard:" destination="TGU-eV-JbH" id="MFM-4T-vVK"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="897" y="-643"/>
+            <point key="canvasLocation" x="897" y="-641"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="lVj-QG-zCn">
+            <objects>
+                <viewController id="gvh-X0-9g0" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="X9t-TL-k6i"/>
+                        <viewControllerLayoutGuide type="bottom" id="G66-Sb-xlk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8RD-q1-opx">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vBG-Rc-7uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1588" y="-641"/>
         </scene>
         <!--Post Wall View Controller-->
         <scene sceneID="brf-U4-bBZ">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="dIm-4X-aeO" customClass="PostWallViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="dIm-4X-aeO" customClass="PostWallViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kRr-WF-a2O"/>
                         <viewControllerLayoutGuide type="bottom" id="FgT-TC-jIy"/>
@@ -185,7 +284,7 @@
                         <barButtonItem key="leftBarButtonItem" title="New Activity" id="1NX-Rt-ghL">
                             <connections>
                                 <action selector="newActivityButton:" destination="dIm-4X-aeO" id="Tg6-Hk-w9t"/>
-                                <segue destination="TGU-eV-JbH" kind="show" identifier="newActivitySegue" id="kb8-U3-4bu"/>
+                                <segue destination="TGU-eV-JbH" kind="show" identifier="newActivitySegue" id="oWt-4E-VL0"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -201,7 +300,7 @@
         <!--Comment View Controller-->
         <scene sceneID="YZN-HL-tZf">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BKq-PH-OYM" customClass="CommentViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BKq-PH-OYM" customClass="CommentViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dhx-J0-XHW"/>
                         <viewControllerLayoutGuide type="bottom" id="HHZ-nr-SD5"/>
@@ -285,7 +384,7 @@
         <!--Login View Controller-->
         <scene sceneID="rYe-WP-Mcc">
             <objects>
-                <viewController storyboardIdentifier="LoginView" id="7NZ-gA-OFH" customClass="LoginViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginView" id="7NZ-gA-OFH" customClass="LoginViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Orx-6j-4Ge"/>
                         <viewControllerLayoutGuide type="bottom" id="O0F-lN-wJv"/>
@@ -294,8 +393,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aCv-fe-LaR">
-                                <rect key="frame" x="276" y="275" width="50" height="50"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aCv-fe-LaR">
+                                <rect key="frame" x="275" y="275" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="I2p-EW-FM2"/>
                                     <constraint firstAttribute="height" constant="50" id="aPd-h2-aqz"/>
@@ -338,7 +437,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="calendar" width="25" height="25"/>
         <image name="home" width="25" height="25"/>
         <image name="list" width="25" height="25"/>
+        <image name="map_marker" width="25" height="25"/>
     </resources>
 </document>

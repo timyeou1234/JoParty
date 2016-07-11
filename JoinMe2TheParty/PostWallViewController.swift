@@ -60,6 +60,7 @@ class PostWallViewController: UIViewController {
     func getPost(){
         postRef.child("Post").observeEventType(.ChildAdded, withBlock: {
             snapshot in
+            
             self.postDict[snapshot.value?.objectForKey("postId") as! String] = snapshot.value
             self.getUser(snapshot.value?.objectForKey("uid") as! String)
             if snapshot.value?.objectForKey("Comment") != nil{
@@ -67,22 +68,50 @@ class PostWallViewController: UIViewController {
             }
             if snapshot.value?.objectForKey("whoLike") != nil{
                 self.getPostWhoLike(snapshot.value?.objectForKey("postId") as! String, whoLike: snapshot.value?.objectForKey("whoLike") as! [String : Bool])
+//                self.getPostWhoLike(snapshot.value?.objectForKey("postId") as! String)
             }
         })
     }
     
+    func getPostWhoLike(postId:String){
+        postRef.child("Post").child(postId).child("whoLike").observeEventType(.ChildAdded, withBlock: {
+            snapshot in
+            print("I'm Herererererererre")
+            print(snapshot.value)
+        })
+    }
+    
     func getPostWhoLike(postId:String, whoLike: [String: Bool]){
-        //        print("Herererererererer:           " + "\(whoLike)")
+//        print("Herererererererer:           " + postId + "\(whoLike)")
+        
         if whoLike[uid!] == false{
-            postLikeList.removeValueForKey(postId)
+            if postLikeList[postId] != nil{
+            var postDictHere:[String:Bool] = postLikeList[postId] as! [String:Bool]
+            postDictHere.removeValueForKey(uid!)
+            print("Hiiiiiiiiiiiiiiiiiii")
+            postLikeList[postId] = postDictHere
+                print(postDictHere)
+            }
         }else{
-            postLikeList[postId] = whoLike
+            if postLikeList[postId] != nil{
+                var postDictHere:[String:Bool] = postLikeList[postId] as! [String:Bool]
+                var uidHere:String?
+                for object in whoLike{
+                    uidHere = object.0
+                    print("看這邊吧～～～～～～～～～～～～～～～～～～～～～～～～")
+                    print(uidHere)
+                    postDictHere[uidHere!] = true
+                    postLikeList[postId] = postDictHere
+                }
+            }else{
+                postLikeList[postId] = whoLike
+            }
         }
     }
     
     func getComments(postid:String, comment: AnyObject){
         commentDict[postid] = comment
-        //        print(commentDict[postid])
+//            print(commentDict[postid])
         tableView.reloadData()
     }
     
@@ -127,10 +156,13 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
         
         cellForPost.showCommentDelegate = self
         cellForPost.likeThisPostDelegate = self
+        cellForPost.isLiked = false
+        cellForPost.rowAtSelectIndexpath = indexPath
         
         cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
 
         if postDict.count == 0 {
+
             tableView.reloadData()
             cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
         }else{
@@ -145,13 +177,16 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
                     cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
                 }
                 likeNum = String(postLikeList[String(indexPath.section)]!.count!)
+                cellForPost.likeNum = postLikeList[String(indexPath.section)]!.count!
             }
             
             cellForPost.postId = postDict[String(indexPath.section)]?.objectForKey("postId") as? String
 
             cellForPost.contextLable.text = postDict[String(indexPath.section)]?.objectForKey("context") as? String
+            cellForPost.timOfIssueLable.text = postDict[String(indexPath.section)]?.objectForKey("issueTime") as? String
             
             cellForPost.likeNumLable.text = likeNum + " 個人喜歡"
+            
             
                         
             if userDict.count == 0 {
@@ -197,7 +232,8 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
             //            print(postDict["\(rowAtSelect)"] as! [String: AnyObject])
             desVc.postDictForComment = postDict["\(rowAtSelect)"] as! [String: AnyObject]
             desVc.userDict = self.userDict
-            
+            desVc.isLiked = (sender as! PostTableViewCell).isLiked
+            desVc.likeNum = (sender as! PostTableViewCell).likeNum
         }
     }
 }
@@ -206,26 +242,23 @@ extension PostWallViewController:ShowCommentDelegate, LikeThisPostDelegate {
     
     func showComment(cell: PostTableViewCell) {
         rowAtSelect = (tableView.indexPathForCell(cell)?.section)!
-        self.performSegueWithIdentifier("showComment", sender: nil)
+        self.performSegueWithIdentifier("showComment", sender: cell)
     }
     
     func likeThisPost(cell: PostTableViewCell) {
         let postId = cell.postId
         if cell.isLiked == true{
+            cell.likeButtonOutlet.setImage(UIImage(named: "like-1"), forState: .Normal)
             postRef.child("Post").child(postId!).child("whoLike").child(uid!).removeValue()
 //            cell.isLiked = false
             self.getPostWhoLike(postId!, whoLike: [uid!: false])
         }else{
-            postRef.child("Post").child(postId!).child("whoLike").setValue([uid!: true])
+            cell.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
+            postRef.child("Post").child(postId!).child("whoLike").child(uid!).setValue(true)
 //            cell.isLiked = true
             self.getPostWhoLike(postId!, whoLike: [uid!: true])
         }
-        if #available(iOS 9.0, *) {
-            tableView.remembersLastFocusedIndexPath = true
-        } else {
-            // Fallback on earlier versions
-        }
-        tableView.reloadRowsAtIndexPaths([tableView.indexPathForCell(cell)!], withRowAnimation: .Automatic)
+        tableView.reloadSections(NSIndexSet(index: Int(cell.postId!)!), withRowAnimation: .Automatic)
     }
     
 }

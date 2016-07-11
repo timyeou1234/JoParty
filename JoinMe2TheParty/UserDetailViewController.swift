@@ -8,6 +8,8 @@
 
 import UIKit
 import FBSDKCoreKit
+import FBSDKLoginKit
+import FBSDKShareKit
 import Firebase
 import FirebaseStorage
 
@@ -19,9 +21,16 @@ class UserDetailViewController: UIViewController {
     @IBAction func logoutButton(sender: AnyObject) {
         
         try! FIRAuth.auth()!.signOut()
-        
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
         FBSDKAccessToken.setCurrentAccessToken(nil)
+        FBSDKAccessToken.setCurrentAccessToken(nil)
+        FBSDKProfile.setCurrentProfile(nil)
         
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("UserPushToken")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
+            
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let loginView: UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LoginView")
         

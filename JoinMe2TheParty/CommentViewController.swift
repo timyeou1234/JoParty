@@ -18,7 +18,7 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
-  
+    
     @IBAction func sendButton(sender: AnyObject) {
         self.doComment()
     }
@@ -28,6 +28,8 @@ class CommentViewController: UIViewController {
         self.bottomConstraint.constant = 0
     }
     
+    var isLiked:Bool?
+    var likeNum:Int?
     let postRef = FIRDatabase.database().reference()
     var userDict = [String: User]()
     var postId:String?
@@ -113,13 +115,20 @@ extension CommentViewController: UITableViewDataSource{
         let cellForPost = tableView.dequeueReusableCellWithIdentifier("CellForPost", forIndexPath: indexPath) as! CommentTableViewCell
         let cellForComment = tableView.dequeueReusableCellWithIdentifier("CellForComment", forIndexPath: indexPath) as! PostCommentTableViewCell
         
+        cellForPost.commentLikeThisPostDelegate = self
+        
         if indexPath.row == 0{
-            
+            if isLiked!{
+                cellForPost.likeButtonOutlet.setImage(UIImage(named: "like-1"), forState: .Normal)
+            }else{
+                cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
+            }
             cellForPost.doCommentDelegate = self
             
             cellForPost.contextLable.text =  postDictForComment["context"] as? String
-            let likeNum:String = postDictForComment["likeNum"] as! String
-            cellForPost.likeNumLable.text = likeNum + "個人說讚"
+            cellForPost.timOfIssueLable.text = postDictForComment["issueTime"] as? String
+            
+            cellForPost.likeNumLable.text = String(likeNum!) + "個人說讚"
             
             let userUid = postDictForComment["uid"] as! String
             let user = userDict[userUid]! as User
@@ -127,12 +136,12 @@ extension CommentViewController: UITableViewDataSource{
             cellForPost.postUserImage.image = UIImage(data: NSData(contentsOfURL: user.photoUrl!)!)
         }else{
             cellForComment.commentContex.text = commentDict["\(indexPath.row-1)"]?.objectForKey("context") as? String
-            if userDict[postDictForComment["uid"] as! String] != nil {
-                let commentUser = userDict[postDictForComment["uid"] as! String]
+            if userDict[(commentDict["\(indexPath.row-1)"]?.objectForKey("uid") as? String)!] != nil {
+                let commentUser = userDict[(commentDict["\(indexPath.row-1)"]?.objectForKey("uid") as? String)!]
                 cellForComment.commentNameLable.text = commentUser?.name
                 cellForComment.commentImage.image = UIImage(data: NSData(contentsOfURL: (commentUser?.photoUrl)!)!)
             }else{
-                let uid = postDictForComment["uid"] as! String
+                let uid = (commentDict["\(indexPath.row-1)"]?.objectForKey("uid") as? String)!
                 postRef.child("User").child(uid).observeEventType(.Value, withBlock: {
                     snapshot in
                     let user = User()
@@ -153,23 +162,42 @@ extension CommentViewController: UITableViewDataSource{
     
 }
 
-extension CommentViewController:DoCommentDelegate{
+extension CommentViewController:DoCommentDelegate, CommentLikeThisPostDelegate{
     func doComment() {
         if inputTextView.hidden{
             inputTextView.hidden = false
         }else{
             inputTextView.hidden = true
-            let dataRef = FIRDatabase.database().reference()
-            let comment: [String : String!] = ["context": inputTextField.text, "uid": uid, "commentId": String(commentDict.count)]
-            let childUpdates = ["/Post/\(postId!)/Comment/\(commentDict.count)": comment]
-            dataRef.updateChildValues(childUpdates)
-            self.inputTextField.text = ""
-            self.getComments()
-            view.endEditing(true)
-            self.bottomConstraint.constant = 0
+            if inputTextField != " " {
+                let dataRef = FIRDatabase.database().reference()
+                let comment: [String : String!] = ["context": inputTextField.text, "uid": uid, "commentId": String(commentDict.count)]
+                let childUpdates = ["/Post/\(postId!)/Comment/\(commentDict.count)": comment]
+                dataRef.updateChildValues(childUpdates)
+                self.inputTextField.text = ""
+                self.getComments()
+                view.endEditing(true)
+                self.bottomConstraint.constant = 0
+            }
         }
     }
+    func likeThisPost(cell: CommentTableViewCell) {
+        if self.isLiked == true{
+            cell.likeButtonOutlet.setImage(UIImage(named: "like-1"), forState: .Normal)
+            cell.likeNumLable.text = String(likeNum! - 1) + "個人說讚"
+            likeNum = likeNum! - 1
+            postRef.child("Post").child(self.postId!).child("whoLike").child(uid!).removeValue()
+            self.isLiked = false
+        }else{
+            cell.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
+            cell.likeNumLable.text = String(likeNum! + 1) + "個人說讚"
+            likeNum = likeNum! + 1
+            postRef.child("Post").child(self.postId!).child("whoLike").child(uid!).setValue(true)
+            self.isLiked = true
+        }
+        tableView.reloadRowsAtIndexPaths([tableView.indexPathForCell(cell)!], withRowAnimation: .Automatic)
+    }
 }
+
 
 
 

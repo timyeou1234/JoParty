@@ -4,18 +4,10 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>JoinMe2TheParty.xcscheme</key>
+		<key>JoParty.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-	</dict>
-	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>6B0D795D1D1E9AAA00DDCB47</key>
-		<dict>
-			<key>primary</key>
-			<true/>
+			<integer>6</integer>
 		</dict>
 	</dict>
 </dict>
