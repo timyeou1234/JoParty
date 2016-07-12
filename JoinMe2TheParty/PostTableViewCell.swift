@@ -8,6 +8,7 @@
 
 protocol ShowCommentDelegate:class {
     func showComment(cell:PostTableViewCell)
+    func showDate(cell: PostTableViewCell)
 }
 protocol LikeThisPostDelegate:class {
     func likeThisPost(cell:PostTableViewCell)
@@ -35,6 +36,7 @@ class PostTableViewCell: UITableViewCell {
         likeThisPostDelegate?.likeThisPost(self)
     }
     @IBAction func joinButton(sender: AnyObject) {
+        showCommentDelegate?.showDate(self)
     }
     
     @IBAction func commentButton(sender: AnyObject) {

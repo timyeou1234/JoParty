@@ -10,7 +10,7 @@
         <!--Home-->
         <scene sceneID="9AM-4a-wdP">
             <objects>
-                <viewController storyboardIdentifier="UserDetailView" id="oeQ-cQ-nC9" customClass="UserDetailViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserDetailView" id="oeQ-cQ-nC9" customClass="UserDetailViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tgj-zl-NbV"/>
                         <viewControllerLayoutGuide type="bottom" id="rak-eQ-DNj"/>
@@ -22,7 +22,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXe-2N-ldV">
                                 <rect key="frame" x="258" y="28" width="85" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bng-R3-S4Q">
@@ -41,7 +41,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJC-0a-pgk">
                                 <rect key="frame" x="178" y="57" width="45" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -88,7 +88,7 @@
         <!--New Activity Date View Controller-->
         <scene sceneID="0Pd-sm-dOM">
             <objects>
-                <viewController id="QpQ-WE-5zB" customClass="NewActivityDateViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QpQ-WE-5zB" customClass="NewActivityDateViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lRo-pZ-DWO"/>
                         <viewControllerLayoutGuide type="bottom" id="TnR-nf-wsc"/>
@@ -153,7 +153,7 @@
         <!--New Activity View Controller-->
         <scene sceneID="HOY-Mz-PwO">
             <objects>
-                <viewController id="TGU-eV-JbH" customClass="NewActivityViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="TGU-eV-JbH" customClass="NewActivityViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eTk-xt-1lc"/>
                         <viewControllerLayoutGuide type="bottom" id="nhr-KI-mHT"/>
@@ -172,7 +172,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMc-vw-VAu">
                                 <rect key="frame" x="116" y="72" width="45" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vmn-HE-xGe">
@@ -271,12 +271,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vBG-Rc-7uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1588" y="-641"/>
+            <point key="canvasLocation" x="1598" y="-1350"/>
         </scene>
         <!--Post Wall View Controller-->
         <scene sceneID="brf-U4-bBZ">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="dIm-4X-aeO" customClass="PostWallViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="dIm-4X-aeO" customClass="PostWallViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kRr-WF-a2O"/>
                         <viewControllerLayoutGuide type="bottom" id="FgT-TC-jIy"/>
@@ -309,6 +309,7 @@
                     <connections>
                         <outlet property="tableView" destination="HqR-cc-Ikj" id="HnW-2t-cTy"/>
                         <segue destination="BKq-PH-OYM" kind="show" identifier="showComment" id="mMv-sH-n8W"/>
+                        <segue destination="M1b-bt-sbY" kind="show" identifier="showDate" id="OoM-3h-yPg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lW1-pH-fYA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -318,7 +319,7 @@
         <!--Comment View Controller-->
         <scene sceneID="YZN-HL-tZf">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BKq-PH-OYM" customClass="CommentViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BKq-PH-OYM" customClass="CommentViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dhx-J0-XHW"/>
                         <viewControllerLayoutGuide type="bottom" id="HHZ-nr-SD5"/>
@@ -399,10 +400,51 @@
             </objects>
             <point key="canvasLocation" x="1598" y="56"/>
         </scene>
+        <!--Join View Controller-->
+        <scene sceneID="z4d-xj-D06">
+            <objects>
+                <viewController id="M1b-bt-sbY" customClass="JoinViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sZu-Vz-dIp"/>
+                        <viewControllerLayoutGuide type="bottom" id="qzA-Vd-hMx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vgp-xW-2rT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nX5-qx-fGG">
+                                <rect key="frame" x="0.0" y="104" width="600" height="447"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="請選擇可以的時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93D-Vt-ZHK">
+                                <rect key="frame" x="20" y="72" width="160" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qzA-Vd-hMx" firstAttribute="top" secondItem="nX5-qx-fGG" secondAttribute="bottom" id="Cfs-9F-zkE"/>
+                            <constraint firstItem="93D-Vt-ZHK" firstAttribute="leading" secondItem="vgp-xW-2rT" secondAttribute="leading" constant="20" id="KzT-s3-byB"/>
+                            <constraint firstAttribute="trailing" secondItem="nX5-qx-fGG" secondAttribute="trailing" id="Z6z-Fr-t6t"/>
+                            <constraint firstItem="nX5-qx-fGG" firstAttribute="leading" secondItem="vgp-xW-2rT" secondAttribute="leading" id="lQ6-Jd-mI8"/>
+                            <constraint firstItem="nX5-qx-fGG" firstAttribute="top" secondItem="93D-Vt-ZHK" secondAttribute="bottom" constant="8" id="ltI-vh-kPU"/>
+                            <constraint firstItem="93D-Vt-ZHK" firstAttribute="top" secondItem="sZu-Vz-dIp" secondAttribute="bottom" constant="8" id="zQl-Uz-pcs"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="nX5-qx-fGG" id="xEJ-pM-rgf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1UW-2S-X60" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1598" y="748"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="rYe-WP-Mcc">
             <objects>
-                <viewController storyboardIdentifier="LoginView" id="7NZ-gA-OFH" customClass="LoginViewController" customModule="JoinMe2TheParty" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginView" id="7NZ-gA-OFH" customClass="LoginViewController" customModule="JoParty" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Orx-6j-4Ge"/>
                         <viewControllerLayoutGuide type="bottom" id="O0F-lN-wJv"/>
