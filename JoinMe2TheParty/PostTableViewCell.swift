@@ -21,12 +21,14 @@ class PostTableViewCell: UITableViewCell {
     weak var showCommentDelegate:ShowCommentDelegate?
     weak var likeThisPostDelegate:LikeThisPostDelegate?
     
+    var cellSection:Int?
     var isLiked:Bool?
     var likeNum:Int?
     var postId:String?
     var rowAtSelectIndexpath:NSIndexPath?
 
     @IBOutlet weak var postUserImage: UIImageView!
+    
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var spinnerView: UIView!
@@ -39,6 +41,9 @@ class PostTableViewCell: UITableViewCell {
         showCommentDelegate?.showDate(self)
     }
     
+    @IBAction func dateButtonAction(sender: AnyObject) {
+        showCommentDelegate?.showDate(self)
+    }
     @IBAction func commentButton(sender: AnyObject) {
         showCommentDelegate?.showComment(self)
     }

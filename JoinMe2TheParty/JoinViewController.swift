@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class JoinViewController: UIViewController {
 
@@ -14,6 +15,9 @@ class JoinViewController: UIViewController {
     
     var postId:Int?
     var dateArray = [String]()
+    var userJoinDate = [String: Bool]()
+    var post = [String:AnyObject]()
+    var currentUserUid:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +26,17 @@ class JoinViewController: UIViewController {
         tableView.delegate = self
         
         tableView.registerNib(UINib(nibName: "JoinTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        
+        if let user = FIRAuth.auth()?.currentUser {
+            currentUserUid = user.uid
+        }
+        
+        if let joinList = post["joinList"]{
+            if let UserJoinDate = joinList[currentUserUid!]{
+                print(UserJoinDate)
+                self.userJoinDate = UserJoinDate as! [String: Bool]
+            }
+        }
         
         
     }
@@ -47,11 +62,17 @@ class JoinViewController: UIViewController {
 extension JoinViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let ref = FIRDatabase.database().reference()
         if let cell = tableView.cellForRowAtIndexPath(indexPath){
             if cell.accessoryType != .Checkmark{
                 cell.accessoryType = .Checkmark
+                ref.child("User").child(currentUserUid!).child("activityWillJoin").child(post["postId"] as! String).child(dateArray[indexPath.row]).setValue(true)
+                ref.child("Post").child(post["postId"] as! String).child("joinList").child(currentUserUid!).child(dateArray[indexPath.row]).setValue(true)
             }else{
                 cell.accessoryType = .None
+                ref.child("User").child(currentUserUid!).child("activityWillJoin").child(post["postId"] as! String).child(dateArray[indexPath.row]).setValue(nil)
+                
+                ref.child("Post").child(post["postId"] as! String).child("joinList").child(currentUserUid!).child(dateArray[indexPath.row]).setValue(nil)
             }
         }
     }
@@ -68,6 +89,9 @@ extension JoinViewController: UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! JoinTableViewCell
         
         cell.dateLable.text = dateArray[indexPath.row]
+        if userJoinDate[dateArray[indexPath.row]] != nil{
+            cell.accessoryType = .Checkmark
+        }
         
         return cell
     }

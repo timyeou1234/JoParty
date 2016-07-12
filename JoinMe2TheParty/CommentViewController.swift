@@ -28,6 +28,7 @@ class CommentViewController: UIViewController {
         self.bottomConstraint.constant = 0
     }
     
+    var post = [String:AnyObject]()
     var isLiked:Bool?
     var likeNum:Int?
     let postRef = FIRDatabase.database().reference()
@@ -91,15 +92,16 @@ class CommentViewController: UIViewController {
     }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
+
+    
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+        if segue.identifier == "showDateFormComment"{
+            let desVc = segue.destinationViewController as! JoinViewController
+            desVc.dateArray = post["activityDate"] as! [String]
+            desVc.post = post 
+        }
+ 
+    }
 }
 
 extension CommentViewController: UITableViewDataSource{
@@ -123,6 +125,15 @@ extension CommentViewController: UITableViewDataSource{
             }else{
                 cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
             }
+            
+            if post["activityDate"] != nil{
+                cellForPost.dateButtonView.setImage(UIImage(named: "calendar-1"), forState: .Normal)
+                //            print(postDict[String(indexPath.section)]?.objectForKey("activityDate"))
+            }else{
+                cellForPost.dateButtonView.setImage(UIImage(named: "calendar"), forState: .Normal)
+            }
+            
+            cellForPost.showDelegate = self
             cellForPost.doCommentDelegate = self
             
             cellForPost.contextLable.text =  postDictForComment["context"] as? String
@@ -162,7 +173,7 @@ extension CommentViewController: UITableViewDataSource{
     
 }
 
-extension CommentViewController:DoCommentDelegate, CommentLikeThisPostDelegate{
+extension CommentViewController:DoCommentDelegate, CommentLikeThisPostDelegate, ShowDelegate{
     func doComment() {
         if inputTextView.hidden{
             inputTextView.hidden = false
@@ -195,6 +206,10 @@ extension CommentViewController:DoCommentDelegate, CommentLikeThisPostDelegate{
             self.isLiked = true
         }
         tableView.reloadRowsAtIndexPaths([tableView.indexPathForCell(cell)!], withRowAnimation: .Automatic)
+    }
+    
+    func showDate(cell: CommentTableViewCell) {
+        self.performSegueWithIdentifier("showDateFormComment", sender: cell)
     }
 }
 

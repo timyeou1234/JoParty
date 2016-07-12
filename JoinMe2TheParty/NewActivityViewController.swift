@@ -25,16 +25,17 @@ class NewActivityViewController: UIViewController {
     
     @IBAction func postBackButton(sender: AnyObject) {
         let dataRef = FIRDatabase.database().reference()
+        let key = dataRef.child("Post").childByAutoId().key
         let date = NSDate()
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy年M月d日H:m"
+        dateFormatter.dateFormat = "yyyy年M月d日H:mm"
         let dateString = dateFormatter.stringFromDate(date)
-        let postList = ["context": inputTextField.text, "likeNum": "0", "uid": uid, "postId": "\(postIdAtCurrent!)", "issueTime": dateString]
-        let childUpdates = ["/Post/\(postIdAtCurrent!)":postList]
+        let postList = ["context": inputTextField.text, "likeNum": "0", "uid": uid, "postId": key, "issueTime": dateString]
+        let childUpdates = ["/Post/\(key)":postList]
         dataRef.updateChildValues(childUpdates)
         
         if Post.post.dateArray.count > 0{
-            dataRef.child("Post").child(String(postIdAtCurrent!)).child("activityDate").setValue(Post.post.dateArray)
+            dataRef.child("Post").child(key).child("activityDate").setValue(Post.post.dateArray)
         }
         
         Post.post.deleteAll()
