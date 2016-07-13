@@ -9,6 +9,7 @@ target 'JoParty' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'Firebase/Core'
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
   pod 'SDWebImage', '~>3.8'

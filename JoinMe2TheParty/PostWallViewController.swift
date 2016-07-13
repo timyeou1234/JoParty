@@ -50,7 +50,7 @@ class PostWallViewController: UIViewController {
             uid = user.uid
         }
         self.getPost()
-        print("Here")
+       
     }
     
     override func didReceiveMemoryWarning() {
@@ -67,7 +67,7 @@ class PostWallViewController: UIViewController {
             
                 self.postArray.insert(snapshot.value!, atIndex: 0)
             }
-//            print(self.postArray)
+
             self.getUser(snapshot.value?.objectForKey("uid") as! String)
             if snapshot.value?.objectForKey("Comment") != nil{
                 self.getComments(snapshot.value?.objectForKey("postId") as! String, comment: (snapshot.value?.objectForKey("Comment"))![0])
@@ -80,8 +80,7 @@ class PostWallViewController: UIViewController {
     }
     
     func getPostWhoLike(postId:String, whoLike: [String: Bool]){
-        //        print("Herererererererer:           " + postId + "\(whoLike)")
-        if whoLike[uid!] == false{
+            if whoLike[uid!] == false{
             if postLikeList[postId] != nil{
                 var postDictHere:[String:Bool] = postLikeList[postId] as! [String:Bool]
                 postDictHere.removeValueForKey(uid!)
@@ -143,6 +142,8 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
         }
     }
     
+//  MARK: Cell for row
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellForPost = tableView.dequeueReusableCellWithIdentifier("CellForPost", forIndexPath: indexPath) as! PostTableViewCell
         let cellForComment = tableView.dequeueReusableCellWithIdentifier("CellForComment", forIndexPath: indexPath) as! PostCommentTableViewCell
@@ -174,10 +175,10 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
         //          設定日曆圖案
         if post["activityDate"] != nil{
             cellForPost.dateButtonView.setImage(UIImage(named: "calendar-1"), forState: .Normal)
-//            print(postDict[String(indexPath.section)]?.objectForKey("activityDate"))
+
         }else{
             cellForPost.dateButtonView.setImage(UIImage(named: "calendar"), forState: .Normal)
-//            print(postDict[String(indexPath.section)]?.objectForKey("activityDate"))
+
         }
         //          設定貼文內容
         cellForPost.postId = post["postId"] as? String
@@ -217,6 +218,10 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
         cellForPost.spinnerView.hidden = true
         return cellForPost
     }
+
+///////////////////////////////////////////////////////////////////////////////////
+//MARK: PrepareForSegue
+///////////////////////////////////////////////////////////////////////////////////
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "newActivitySegue"{
@@ -226,7 +231,7 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
         }else if segue.identifier == "showDate"{
             let post = postArray[rowAtSelect]
             if post["activityDate"] != nil{
-            let desVc = segue.destinationViewController as! JoinViewController
+                let desVc = segue.destinationViewController as! JoinViewController
                 print(post)
                 desVc.dateArray = post["activityDate"] as! [String]
                 desVc.post = post as! [String : AnyObject]
@@ -234,8 +239,7 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
         }else{
             let post = postArray[rowAtSelect]
             let desVc = segue.destinationViewController as! CommentViewController
-            //            print(postDict["\(rowAtSelect)"] as! [String: AnyObject])
-            
+
             desVc.postDictForComment = post as! [String: AnyObject]
             desVc.userDict = self.userDict
             desVc.post = post as! [String : AnyObject]
@@ -246,6 +250,8 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
 }
 
 extension PostWallViewController:ShowCommentDelegate, LikeThisPostDelegate {
+
+//  MARK: Perform Segue
     
     func showComment(cell: PostTableViewCell) {
         rowAtSelect = (tableView.indexPathForCell(cell)?.section)!
@@ -254,8 +260,16 @@ extension PostWallViewController:ShowCommentDelegate, LikeThisPostDelegate {
     
     func showDate(cell: PostTableViewCell){
         rowAtSelect = (tableView.indexPathForCell(cell)?.section)!
-        self.performSegueWithIdentifier("showDate", sender: cell)
+        let post = postArray[rowAtSelect]
+        
+        if post.objectForKey("activityDate") != nil {
+            self.performSegueWithIdentifier("showDate", sender: cell)
+        }else{
+            
+        }
     }
+    
+///////////////////////////////////////////////////////////////////////////////////
     
     func likeThisPost(cell: PostTableViewCell) {
         let postId = cell.postId

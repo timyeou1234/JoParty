@@ -66,7 +66,17 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ue5-nN-gNm">
                                 <rect key="frame" x="0.0" y="259" width="600" height="292"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="WCD-13-MNe">
+                                        <rect key="frame" x="282" y="127" width="37" height="37"/>
+                                        <color key="color" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </activityIndicatorView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="WCD-13-MNe" firstAttribute="centerY" secondItem="Ue5-nN-gNm" secondAttribute="centerY" id="7Cm-qK-5CA"/>
+                                    <constraint firstItem="WCD-13-MNe" firstAttribute="centerX" secondItem="Ue5-nN-gNm" secondAttribute="centerX" id="Pvs-gy-Ld3"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
@@ -96,6 +106,7 @@
                     <tabBarItem key="tabBarItem" title="Home" image="home" selectedImage="home" id="Ewr-ol-WJw"/>
                     <connections>
                         <outlet property="nameLable" destination="RJC-0a-pgk" id="YHw-PC-qX7"/>
+                        <outlet property="spinnerIcon" destination="WCD-13-MNe" id="gJ1-81-mTn"/>
                         <outlet property="spinnerView" destination="Ue5-nN-gNm" id="cnd-It-3sB"/>
                         <outlet property="tableView" destination="Ezk-O4-8Sj" id="17o-Gd-KTq"/>
                         <outlet property="userPic" destination="etO-z0-r42" id="Fn8-SJ-Phd"/>

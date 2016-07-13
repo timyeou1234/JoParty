@@ -13,6 +13,7 @@ import FBSDKShareKit
 import Firebase
 import FirebaseStorage
 
+
 class UserDetailViewController: UIViewController {
     
     
@@ -26,6 +27,7 @@ class UserDetailViewController: UIViewController {
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var nameLable: UILabel!
     @IBOutlet weak var spinnerView: UIView!
+    @IBOutlet weak var spinnerIcon: UIActivityIndicatorView!
     
     @IBAction func logoutButton(sender: AnyObject) {
         
@@ -61,7 +63,7 @@ class UserDetailViewController: UIViewController {
         if let user = FIRAuth.auth()?.currentUser {
             let name = user.displayName
             let email = user.email
-            let photoUrl = user.photoURL
+            _ = user.photoURL
             self.uid = user.uid
             
             nameLable.text = name
@@ -102,10 +104,11 @@ class UserDetailViewController: UIViewController {
                         
                         if let imageData = NSData(contentsOfURL: NSURL(string: urlPic)!){
                             
-                            let uploadTask = profilePicRef.putData(imageData, metadata: nil){
+                    //MARK: Upload & Download
+                            _ = profilePicRef.putData(imageData, metadata: nil){
                                 (metadata, error) in
                                 if error == nil{
-                                    let downloadURL = metadata?.downloadURL
+                                    _ = metadata?.downloadURL
                                 }else{
                                     print(error?.localizedDescription)
                                 }
@@ -123,34 +126,37 @@ class UserDetailViewController: UIViewController {
         }
     }
     
-    
-    
-    
+//////////////////////////////////////////////////////////////////////
     
     override func viewWillAppear(animated: Bool) {
         self.userPic.layer.cornerRadius = userPic.bounds.width/2
         self.userPic.clipsToBounds = true
-        
+        postArray = [AnyObject]()
+        spinnerIcon.startAnimating()
         getCurrentUserPost()
         
         
     }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: Download method
+    
     func getCurrentUserPost(){
         let ref = FIRDatabase.database().reference()
+        print(FIRAuth.auth()?.currentUser)
         if let user = FIRAuth.auth()?.currentUser {
-            ref.child("User").child(user.uid).child("activityWillJoin").observeEventType(.ChildAdded, withBlock: {
+            ref.child("User").child(user.uid).child("activityWillJoin").observeEventType(.Value, withBlock: {
                 snapShot in
                 //                print(self.postArray)
-                print(snapShot.key)
-                self.getPost(snapShot.key)
+                let snapDict = snapShot.value as! [String:AnyObject]
+                for (_, entry) in snapDict.enumerate(){
+                    print((entry.0))
+                    self.getPost(entry.0 as String)
+                }
             })
         }
     }
@@ -169,7 +175,7 @@ class UserDetailViewController: UIViewController {
                     self.getPostWhoLike(postId, whoLike: snapshot.value?.objectForKey("whoLike") as! [String : Bool])
                 }
             }else{
-                
+            self.tableView.reloadData()
             }
 
         })
