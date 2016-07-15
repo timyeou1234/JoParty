@@ -23,17 +23,21 @@ class PostTableViewCell: UITableViewCell {
     
     var cellSection:Int?
     var isLiked:Bool?
-    var likeNum:Int?
+    var likeNum:Int = 0
     var postId:String?
     var rowAtSelectIndexpath:NSIndexPath?
 
     @IBOutlet weak var postUserImage: UIImageView!
     
     
+    @IBOutlet weak var commentsNumberLable: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var spinnerView: UIView!
     @IBOutlet weak var dateButtonView: UIButton!
     @IBOutlet weak var likeButtonOutlet: UIButton!
+    @IBAction func likeButtonTransform(sender: AnyObject) {
+        likeThisPostDelegate?.likeThisPost(self)
+    }
     @IBAction func likeButton(sender: AnyObject) {
         likeThisPostDelegate?.likeThisPost(self)
     }

@@ -22,6 +22,7 @@ class UserDetailViewController: UIViewController {
     let postRef = FIRDatabase.database().reference()
     var uid:String?
     var postLikeList = [String: AnyObject]()
+    var rowAtSelect:Int?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userPic: UIImageView!
@@ -91,11 +92,9 @@ class UserDetailViewController: UIViewController {
             }
             
             if self.userPic.image == nil{
-                
                 let profilePic: FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/picture", parameters: ["height": 300, "width": 300, "redirect": false], HTTPMethod: "GET")
                 profilePic.startWithCompletionHandler({
                     (connection, result, error) -> Void in
-                    
                     if error == nil{
                         let dictionary = result as? NSDictionary
                         let data = dictionary?.objectForKey("data")
@@ -104,7 +103,7 @@ class UserDetailViewController: UIViewController {
                         
                         if let imageData = NSData(contentsOfURL: NSURL(string: urlPic)!){
                             
-                    //MARK: Upload & Download
+                            //MARK: Upload & Download
                             _ = profilePicRef.putData(imageData, metadata: nil){
                                 (metadata, error) in
                                 if error == nil{
@@ -118,15 +117,13 @@ class UserDetailViewController: UIViewController {
                     }
                     
                 })
-                
-                
             }else {
                 // No user is signed in.
             }
         }
     }
     
-//////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
     
     override func viewWillAppear(animated: Bool) {
         self.userPic.layer.cornerRadius = userPic.bounds.width/2
@@ -152,10 +149,19 @@ class UserDetailViewController: UIViewController {
             ref.child("User").child(user.uid).child("activityWillJoin").observeEventType(.Value, withBlock: {
                 snapShot in
                 //                print(self.postArray)
-                let snapDict = snapShot.value as! [String:AnyObject]
-                for (_, entry) in snapDict.enumerate(){
-                    print((entry.0))
-                    self.getPost(entry.0 as String)
+                
+                if snapShot.childrenCount > UInt(0){
+                    print(snapShot.childrenCount)
+                    if let _ = snapShot.value as? [String:AnyObject]
+                    {
+                        let snapDict = snapShot.value as! [String:AnyObject]
+                        for (_, entry) in snapDict.enumerate(){
+                            print((entry.0))
+                            self.getPost(entry.0 as String)
+                        }
+                    }else{
+                        self.tableView.reloadData()
+                    }
                 }
             })
         }
@@ -167,7 +173,7 @@ class UserDetailViewController: UIViewController {
             snapshot in
             print(snapshot)
             self.postArray.insert(snapshot.value as! NSDictionary, atIndex: 0)
-//            self.postArray.insert(snapshot.value! as AnyObject, atIndex: 0)
+            //            self.postArray.insert(snapshot.value! as AnyObject, atIndex: 0)
             if snapshot.value?.objectForKey("uid") != nil{
                 print(snapshot.value?.objectForKey("uid") as! String)
                 self.getUser(snapshot.value?.objectForKey("uid") as! String)
@@ -175,38 +181,37 @@ class UserDetailViewController: UIViewController {
                     self.getPostWhoLike(postId, whoLike: snapshot.value?.objectForKey("whoLike") as! [String : Bool])
                 }
             }else{
-            self.tableView.reloadData()
             }
-
+            
         })
     }
     
     func getPostWhoLike(postId:String, whoLike: [String: Bool]){
         //        print("Herererererererer:           " + postId + "\(whoLike)")
         if let user = FIRAuth.auth()?.currentUser{
-        if whoLike[user.uid] == false{
-            if postLikeList[postId] != nil{
-                var postDictHere:[String:Bool] = postLikeList[postId] as! [String:Bool]
-                postDictHere.removeValueForKey(uid!)
-                postLikeList[postId] = postDictHere
-            }
-        }else{
-            if postLikeList[postId] != nil{
-                var postDictHere:[String:Bool] = postLikeList[postId] as! [String:Bool]
-                var uidHere:String?
-                for object in whoLike{
-                    uidHere = object.0
-                    postDictHere[uidHere!] = true
+            if whoLike[user.uid] == false{
+                if postLikeList[postId] != nil{
+                    var postDictHere:[String:Bool] = postLikeList[postId] as! [String:Bool]
+                    postDictHere.removeValueForKey(uid!)
                     postLikeList[postId] = postDictHere
                 }
             }else{
-                postLikeList[postId] = whoLike
-            }
+                if postLikeList[postId] != nil{
+                    var postDictHere:[String:Bool] = postLikeList[postId] as! [String:Bool]
+                    var uidHere:String?
+                    for object in whoLike{
+                        uidHere = object.0
+                        postDictHere[uidHere!] = true
+                        postLikeList[postId] = postDictHere
+                    }
+                }else{
+                    postLikeList[postId] = whoLike
+                }
             }
         }
         self.tableView.reloadData()
     }
-
+    
     
     func getUser(uid:String){
         if userDict[uid] == nil{
@@ -223,17 +228,22 @@ class UserDetailViewController: UIViewController {
     }
     
     
-
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    
+    
+    // MARK: - Prepare for segue
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let post = postArray[rowAtSelect!]
+        let desVc = segue.destinationViewController as! CommentViewController
+        
+        desVc.postDictForComment = post as! [String: AnyObject]
+        desVc.userDict = self.userDict
+        desVc.post = post as! [String : AnyObject]
+        desVc.isLiked = (sender as! PostTableViewCell).isLiked
+        desVc.likeNum = (sender as! PostTableViewCell).likeNum
+    }
+    
     
 }
 
@@ -243,59 +253,76 @@ extension UserDetailViewController:UITableViewDataSource{
         return postArray.count
     }
     
+    //MARK:Cell for row at indexpath
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellForPost = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PostTableViewCell
-        var post = postArray[indexPath.row] as! [String:AnyObject]
-        
-        cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
-        
-        //          設定喜歡人數
-        var likeNum = "0"
-        if postLikeList[post["postId"] as! String]?.count == nil{
-        }else{
-            //          設定愛心圖案
-            if postLikeList[post["postId"] as! String]?.objectForKey(uid) != nil{
-                cellForPost.isLiked = true
-                cellForPost.likeButtonOutlet.setImage(UIImage(named: "like-1"), forState: .Normal)
-            }else{
-                cellForPost.isLiked = false
-                cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
+        if postArray.count - 1 >= indexPath.row{
+            var post = postArray[indexPath.row] as! [String:AnyObject]
+            
+            cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
+            cellForPost.showCommentDelegate = self
+            
+            //////////////////////////////////////////////////////////////////////////////
+            //MARK: 設定留言人數
+            //////////////////////////////////////////////////////////////////////////////
+            var commentNum = 0
+            cellForPost.commentsNumberLable.text = "0 則留言"
+            
+            if post["Comment"]?.count > 0{
+                commentNum = (post["Comment"]?.count)!
+                cellForPost.commentsNumberLable.text = "\(commentNum) 則留言"
             }
-            likeNum = String(postLikeList[post["postId"] as! String]!.count!)
-            cellForPost.likeNum = postLikeList[post["postId"] as! String]!.count!
+            
+            
+            //          設定喜歡人數
+            var likeNum = "0"
+            if postLikeList[post["postId"] as! String]?.count == nil{
+            }else{
+                //          設定愛心圖案
+                if postLikeList[post["postId"] as! String]?.objectForKey(uid) != nil{
+                    cellForPost.isLiked = true
+                    cellForPost.likeButtonOutlet.setImage(UIImage(named: "like-1"), forState: .Normal)
+                }else{
+                    cellForPost.isLiked = false
+                    cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
+                }
+                likeNum = String(postLikeList[post["postId"] as! String]!.count!)
+                cellForPost.likeNum = postLikeList[post["postId"] as! String]!.count!
+            }
+            //          設定日曆圖案
+            if post["activityDate"] != nil{
+                cellForPost.dateButtonView.setImage(UIImage(named: "calendar-1"), forState: .Normal)
+                //            print(postDict[String(indexPath.section)]?.objectForKey("activityDate"))
+            }else{
+                cellForPost.dateButtonView.setImage(UIImage(named: "calendar"), forState: .Normal)
+                //            print(postDict[String(indexPath.section)]?.objectForKey("activityDate"))
+            }
+            //          設定貼文內容
+            cellForPost.postId = post["postId"] as? String
+            cellForPost.cellSection = indexPath.section
+            
+            
+            
+            cellForPost.contextLable.text = post["context"] as? String
+            cellForPost.timOfIssueLable.text = post["issueTime"] as? String
+            
+            cellForPost.likeNumLable.text = likeNum + " 個人喜歡"
+            
+            
+            
+            
+            let userUid = post["uid"] as! String
+            if userDict[userUid] != nil{
+                let user = userDict[userUid]! as User
+                cellForPost.postNameLable.text = user.name
+                cellForPost.postUserImage.sd_setImageWithURL(user.photoUrl!)
+            }else{
+                return cellForPost
+            }
+            cellForPost.spinnerView.hidden = true
+            spinnerView.hidden = true
         }
-        //          設定日曆圖案
-        if post["activityDate"] != nil{
-            cellForPost.dateButtonView.setImage(UIImage(named: "calendar-1"), forState: .Normal)
-            //            print(postDict[String(indexPath.section)]?.objectForKey("activityDate"))
-        }else{
-            cellForPost.dateButtonView.setImage(UIImage(named: "calendar"), forState: .Normal)
-            //            print(postDict[String(indexPath.section)]?.objectForKey("activityDate"))
-        }
-        //          設定貼文內容
-        cellForPost.postId = post["postId"] as? String
-        cellForPost.cellSection = indexPath.section
-        
-        
-        
-        cellForPost.contextLable.text = post["context"] as? String
-        cellForPost.timOfIssueLable.text = post["issueTime"] as? String
-        
-        cellForPost.likeNumLable.text = likeNum + " 個人喜歡"
-        
-        
-        
-        
-        let userUid = post["uid"] as! String
-        if userDict[userUid] != nil{
-            let user = userDict[userUid]! as User
-            cellForPost.postNameLable.text = user.name
-            cellForPost.postUserImage.sd_setImageWithURL(user.photoUrl!)
-        }else{
-            return cellForPost
-        }
-        cellForPost.spinnerView.hidden = true
-        spinnerView.hidden = true
         return cellForPost
     }
     
@@ -303,6 +330,17 @@ extension UserDetailViewController:UITableViewDataSource{
     
 }
 
+extension UserDetailViewController:ShowCommentDelegate{
+    func showDate(cell: PostTableViewCell){
+        
+    }
+    
+    func showComment(cell: PostTableViewCell) {
+        rowAtSelect = (tableView.indexPathForCell(cell)?.row)!
+        self.performSegueWithIdentifier("showComment", sender: cell)
+    }
+    
+}
 
 
 

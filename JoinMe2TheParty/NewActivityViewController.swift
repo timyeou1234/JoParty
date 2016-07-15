@@ -27,10 +27,20 @@ class NewActivityViewController: UIViewController {
         let dataRef = FIRDatabase.database().reference()
         let key = dataRef.child("Post").childByAutoId().key
         let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = NSDateComponents()
+        components.day = 5
+        components.month = 01
+        components.year = 2016
+        components.hour = 19
+        components.minute = 30
+        let beginDate = calendar.dateFromComponents(components)
+        let timestamp = Int(date.timeIntervalSinceDate(beginDate!))
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy年M月d日H:mm"
         let dateString = dateFormatter.stringFromDate(date)
-        let postList = ["context": inputTextField.text, "likeNum": "0", "uid": uid, "postId": key, "issueTime": dateString]
+        var postList = [String: AnyObject]()
+        postList = ["context": inputTextField.text, "likeNum": "0", "uid": uid!, "postId": key, "issueTime": dateString, "timeStamp": timestamp]
         let childUpdates = ["/Post/\(key)":postList]
         dataRef.updateChildValues(childUpdates)
         

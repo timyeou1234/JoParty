@@ -34,7 +34,9 @@ class JoinViewController: UIViewController {
         if let joinList = post["joinList"]{
             if let UserJoinDate = joinList[currentUserUid!]{
                 print(UserJoinDate)
-                self.userJoinDate = UserJoinDate as! [String: Bool]
+                if UserJoinDate != nil{
+                    self.userJoinDate = UserJoinDate as! [String: Bool]
+                }
             }
         }
         

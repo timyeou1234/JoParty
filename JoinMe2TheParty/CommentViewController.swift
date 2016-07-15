@@ -92,7 +92,9 @@ class CommentViewController: UIViewController {
     }
     
     
-
+////////////////////////////////////////////////////////////////////////////////
+    //MARK:Prepare for segue
+////////////////////////////////////////////////////////////////////////////////
     
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDateFormComment"{
@@ -100,7 +102,6 @@ class CommentViewController: UIViewController {
             desVc.dateArray = post["activityDate"] as! [String]
             desVc.post = post 
         }
- 
     }
 }
 
@@ -118,6 +119,13 @@ extension CommentViewController: UITableViewDataSource{
         let cellForComment = tableView.dequeueReusableCellWithIdentifier("CellForComment", forIndexPath: indexPath) as! PostCommentTableViewCell
         
         cellForPost.commentLikeThisPostDelegate = self
+        if isLiked == nil{
+            isLiked = false
+        }
+        
+        if likeNum == nil{
+            likeNum = 0
+        }
         
         if indexPath.row == 0{
             if isLiked!{

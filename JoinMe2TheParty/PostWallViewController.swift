@@ -45,10 +45,13 @@ class PostWallViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        resetData()
+        tableView.reloadData()
         
         if let user = FIRAuth.auth()?.currentUser {
             uid = user.uid
         }
+        
         self.getPost()
        
     }
@@ -58,17 +61,27 @@ class PostWallViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func resetData() {
+        postDict = [String: AnyObject]()
+        postArray = [AnyObject]()
+        postLikeList = [String: AnyObject]()
+        commentDict = [String: AnyObject]()
+    }
+    
     func getPost(){
-        postRef.child("Post").observeEventType(.ChildAdded, withBlock: {
+        self.resetData()
+        let sortedRef = postRef.child("Post").queryOrderedByChild("timeStamp")
+        sortedRef.observeEventType(.ChildAdded, withBlock: {
             snapshot in
             
             if self.postDict[snapshot.value?.objectForKey("postId") as! String] == nil{
                 self.postDict[snapshot.value?.objectForKey("postId") as! String] = snapshot.value
-            
+                
                 self.postArray.insert(snapshot.value!, atIndex: 0)
             }
 
             self.getUser(snapshot.value?.objectForKey("uid") as! String)
+            
             if snapshot.value?.objectForKey("Comment") != nil{
                 self.getComments(snapshot.value?.objectForKey("postId") as! String, comment: (snapshot.value?.objectForKey("Comment"))![0])
             }
@@ -76,6 +89,7 @@ class PostWallViewController: UIViewController {
                 self.getPostWhoLike(snapshot.value?.objectForKey("postId") as! String, whoLike: snapshot.value?.objectForKey("whoLike") as! [String : Bool])
                 //                self.getPostWhoLike(snapshot.value?.objectForKey("postId") as! String)
             }
+            self.sortArray(self.postArray)
         })
     }
     
@@ -121,6 +135,36 @@ class PostWallViewController: UIViewController {
             })
         }
     }
+/////////////////////////////////////////////////////////////////////////////
+    //MARK: Sort Array
+/////////////////////////////////////////////////////////////////////////////
+    func sortArray(Array:[AnyObject]){
+        if Array.count > 2{
+        print(Array)
+        var ansArray = [AnyObject]()
+        for _ in 0...Array.count - 1{
+            ansArray.append(["a":"b"])
+        }
+        var position = 0
+        var i = 0
+        var smallerThan = 0
+        while  i < Array.count {
+            for y in 0...Array.count-1{
+                print(postArray[i].objectForKey("timeStamp") as! Int)
+                if (postArray[i].objectForKey("timeStamp") as! Int) > (postArray[y].objectForKey("timeStamp") as! Int){
+                    smallerThan += 1
+                }
+            }
+            position = postArray.count - smallerThan - 1
+            ansArray[position] = postArray[i]
+            i += 1
+            position = 0
+            smallerThan = 0
+        }
+        postArray = ansArray
+        self.tableView.reloadData()
+        }
+    }
 }
 
 extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
@@ -156,6 +200,16 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
         var post = postArray[indexPath.section] as! [String:AnyObject]
         
         cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
+//////////////////////////////////////////////////////////////////////////////
+        //MARK: 設定留言人數
+//////////////////////////////////////////////////////////////////////////////
+        var commentNum = 0
+        cellForPost.commentsNumberLable.text = "0 則留言"
+        
+        if commentDict[post["postId"] as! String] != nil{
+            commentNum = (post["Comment"]?.count)!
+            cellForPost.commentsNumberLable.text = "\(commentNum) 則留言"
+        }
         
         //          設定喜歡人數
         var likeNum = "0"
@@ -172,7 +226,9 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
             likeNum = String(postLikeList[post["postId"] as! String]!.count!)
             cellForPost.likeNum = postLikeList[post["postId"] as! String]!.count!
         }
-        //          設定日曆圖案
+//////////////////////////////////////////////////////////////////////////
+        //MARK:設定日曆圖案
+//////////////////////////////////////////////////////////////////////////
         if post["activityDate"] != nil{
             cellForPost.dateButtonView.setImage(UIImage(named: "calendar-1"), forState: .Normal)
 
@@ -180,7 +236,9 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
             cellForPost.dateButtonView.setImage(UIImage(named: "calendar"), forState: .Normal)
 
         }
-        //          設定貼文內容
+/////////////////////////////////////////////////////////////////////////
+        //MARK: 設定貼文內容
+/////////////////////////////////////////////////////////////////////////
         cellForPost.postId = post["postId"] as? String
         cellForPost.cellSection = indexPath.section
         
@@ -232,7 +290,6 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
             let post = postArray[rowAtSelect]
             if post["activityDate"] != nil{
                 let desVc = segue.destinationViewController as! JoinViewController
-                print(post)
                 desVc.dateArray = post["activityDate"] as! [String]
                 desVc.post = post as! [String : AnyObject]
             }
@@ -277,14 +334,14 @@ extension PostWallViewController:ShowCommentDelegate, LikeThisPostDelegate {
             cell.likeButtonOutlet.setImage(UIImage(named: "like-1"), forState: .Normal)
             postRef.child("Post").child(postId!).child("whoLike").child(uid!).removeValue()
             //            cell.isLiked = false
-            cell.likeNum! -= 1
-            cell.likeNumLable.text = String(cell.likeNum!) + " 個人喜歡"
+            cell.likeNum -= 1
+            cell.likeNumLable.text = String(cell.likeNum) + " 個人喜歡"
             self.getPostWhoLike(postId!, whoLike: [uid!: false])
         }else{
             cell.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
             postRef.child("Post").child(postId!).child("whoLike").child(uid!).setValue(true)
-            cell.likeNum! += 1
-            cell.likeNumLable.text = String(cell.likeNum!) + " 個人喜歡"
+            cell.likeNum += 1
+            cell.likeNumLable.text = String(cell.likeNum) + " 個人喜歡"
             //            cell.isLiked = true
             self.getPostWhoLike(postId!, whoLike: [uid!: true])
         }
