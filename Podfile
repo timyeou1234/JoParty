@@ -14,5 +14,7 @@ target 'JoParty' do
   pod 'FBSDKShareKit'
   pod 'SDWebImage', '~>3.8'
   pod 'MBCircularProgressBar'
+  pod 'BetterSegmentedControl', '~> 0.4'
+  pod 'RACollectionViewReorderableTripletLayout'
 
 end

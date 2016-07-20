@@ -135,12 +135,14 @@ class PostWallViewController: UIViewController {
             })
         }
     }
+    
 /////////////////////////////////////////////////////////////////////////////
     //MARK: Sort Array
 /////////////////////////////////////////////////////////////////////////////
+    
     func sortArray(Array:[AnyObject]){
         if Array.count > 2{
-        print(Array)
+
         var ansArray = [AnyObject]()
         for _ in 0...Array.count - 1{
             ansArray.append(["a":"b"])
@@ -150,7 +152,6 @@ class PostWallViewController: UIViewController {
         var smallerThan = 0
         while  i < Array.count {
             for y in 0...Array.count-1{
-                print(postArray[i].objectForKey("timeStamp") as! Int)
                 if (postArray[i].objectForKey("timeStamp") as! Int) > (postArray[y].objectForKey("timeStamp") as! Int){
                     smallerThan += 1
                 }
@@ -197,12 +198,29 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
         cellForPost.isLiked = false
         cellForPost.rowAtSelectIndexpath = indexPath
         
+//////////////////////////////////////////////////////////////////////////////
+        //MARK: 設定是否參加
+//////////////////////////////////////////////////////////////////////////////
+
         var post = postArray[indexPath.section] as! [String:AnyObject]
+        cellForPost.isJoinedImageView.hidden = true
+        
+        if let didIJoin = post["joinList"] as? [String:AnyObject]{
+            for (a, _) in didIJoin{
+                if a == CurrentUser.user.uid{
+                   cellForPost.isJoinedImageView.hidden = false
+                }
+            }
+        }else{
+            cellForPost.isJoinedImageView.hidden = true
+        }
         
         cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
+        
 //////////////////////////////////////////////////////////////////////////////
         //MARK: 設定留言人數
 //////////////////////////////////////////////////////////////////////////////
+        
         var commentNum = 0
         cellForPost.commentsNumberLable.text = "0 則留言"
         
@@ -226,9 +244,11 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
             likeNum = String(postLikeList[post["postId"] as! String]!.count!)
             cellForPost.likeNum = postLikeList[post["postId"] as! String]!.count!
         }
+        
 //////////////////////////////////////////////////////////////////////////
         //MARK:設定日曆圖案
 //////////////////////////////////////////////////////////////////////////
+        
         if post["activityDate"] != nil{
             cellForPost.dateButtonView.setImage(UIImage(named: "calendar-1"), forState: .Normal)
 
@@ -236,9 +256,11 @@ extension PostWallViewController: UITableViewDataSource, UITableViewDelegate{
             cellForPost.dateButtonView.setImage(UIImage(named: "calendar"), forState: .Normal)
 
         }
+        
 /////////////////////////////////////////////////////////////////////////
         //MARK: 設定貼文內容
 /////////////////////////////////////////////////////////////////////////
+        
         cellForPost.postId = post["postId"] as? String
         cellForPost.cellSection = indexPath.section
         

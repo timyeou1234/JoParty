@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FBSDKCoreKit
 import FBSDKLoginKit
 import FBSDKShareKit
 import Firebase
@@ -29,6 +28,7 @@ class UserDetailViewController: UIViewController {
     @IBOutlet weak var nameLable: UILabel!
     @IBOutlet weak var spinnerView: UIView!
     @IBOutlet weak var spinnerIcon: UIActivityIndicatorView!
+    @IBOutlet weak var noActivityLable: UILabel!
     
     @IBAction func logoutButton(sender: AnyObject) {
         
@@ -82,7 +82,7 @@ class UserDetailViewController: UIViewController {
             
             profilePicRef.dataWithMaxSize(1 * 1024 * 1024) { (data, error) -> Void in
                 if (error != nil) {
-                    print("Dowload exixt issue")
+                    
                 } else {
                     // Data for "images/island.jpg" is returned
                     // ... let islandImage: UIImage! = UIImage(data: data!)
@@ -109,7 +109,7 @@ class UserDetailViewController: UIViewController {
                                 if error == nil{
                                     _ = metadata?.downloadURL
                                 }else{
-                                    print(error?.localizedDescription)
+//                                    print(error?.localizedDescription)
                                 }
                             }
                             self.userPic.image = UIImage(data: imageData)
@@ -130,6 +130,7 @@ class UserDetailViewController: UIViewController {
         self.userPic.clipsToBounds = true
         postArray = [AnyObject]()
         spinnerIcon.startAnimating()
+        self.noActivityLable.hidden = true
         getCurrentUserPost()
         
         
@@ -144,19 +145,19 @@ class UserDetailViewController: UIViewController {
     
     func getCurrentUserPost(){
         let ref = FIRDatabase.database().reference()
-        print(FIRAuth.auth()?.currentUser)
         if let user = FIRAuth.auth()?.currentUser {
             ref.child("User").child(user.uid).child("activityWillJoin").observeEventType(.Value, withBlock: {
                 snapShot in
-                //                print(self.postArray)
+                
                 
                 if snapShot.childrenCount > UInt(0){
-                    print(snapShot.childrenCount)
+                    
                     if let _ = snapShot.value as? [String:AnyObject]
                     {
                         let snapDict = snapShot.value as! [String:AnyObject]
                         for (_, entry) in snapDict.enumerate(){
-                            print((entry.0))
+                            print("postId")
+                            print(entry.0)
                             self.getPost(entry.0 as String)
                         }
                     }else{
@@ -171,23 +172,25 @@ class UserDetailViewController: UIViewController {
         let ref = FIRDatabase.database().reference()
         ref.child("Post").child("\(postId)").observeEventType(.Value, withBlock: {
             snapshot in
-            print(snapshot)
+            
             self.postArray.insert(snapshot.value as! NSDictionary, atIndex: 0)
-            //            self.postArray.insert(snapshot.value! as AnyObject, atIndex: 0)
+            print("here")
+            print(self.postArray)
+            self.sortArray(self.postArray)
             if snapshot.value?.objectForKey("uid") != nil{
-                print(snapshot.value?.objectForKey("uid") as! String)
                 self.getUser(snapshot.value?.objectForKey("uid") as! String)
                 if snapshot.value?.objectForKey("whoLike") != nil{
                     self.getPostWhoLike(postId, whoLike: snapshot.value?.objectForKey("whoLike") as! [String : Bool])
                 }
             }else{
+                self.spinnerIcon.hidden = true
+                self.noActivityLable.hidden = false
             }
             
         })
     }
     
     func getPostWhoLike(postId:String, whoLike: [String: Bool]){
-        //        print("Herererererererer:           " + postId + "\(whoLike)")
         if let user = FIRAuth.auth()?.currentUser{
             if whoLike[user.uid] == false{
                 if postLikeList[postId] != nil{
@@ -209,7 +212,7 @@ class UserDetailViewController: UIViewController {
                 }
             }
         }
-        self.tableView.reloadData()
+        //        self.tableView.reloadData()
     }
     
     
@@ -226,7 +229,38 @@ class UserDetailViewController: UIViewController {
             })
         }
     }
-    
+    //MARK:Sort array
+    func sortArray(Array:[AnyObject]){
+        if Array.count > 2{
+            for here in postArray{
+                if here.objectForKey("timeStamp") == nil{
+                    return
+                }
+            }
+            var ansArray = [AnyObject]()
+            for _ in 0...Array.count - 1{
+                ansArray.append(["a":"b"])
+            }
+            var position = 0
+            var i = 0
+            var smallerThan = 0
+            while  i < postArray.count {
+                for y in 0...postArray.count - 1{
+                    
+                        if (postArray[i].objectForKey("timeStamp") as! Int) > (postArray[y].objectForKey("timeStamp") as! Int){
+                            smallerThan += 1
+                        }
+                    }
+                
+                position = postArray.count - smallerThan - 1
+                ansArray[position] = postArray[i]
+                i += 1
+                position = 0
+                smallerThan = 0
+            }
+            postArray = ansArray
+        }
+    }
     
     
     
@@ -259,6 +293,8 @@ extension UserDetailViewController:UITableViewDataSource{
         let cellForPost = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PostTableViewCell
         if postArray.count - 1 >= indexPath.row{
             var post = postArray[indexPath.row] as! [String:AnyObject]
+            print(post)
+            
             
             cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
             cellForPost.showCommentDelegate = self
@@ -277,18 +313,20 @@ extension UserDetailViewController:UITableViewDataSource{
             
             //          設定喜歡人數
             var likeNum = "0"
-            if postLikeList[post["postId"] as! String]?.count == nil{
-            }else{
-                //          設定愛心圖案
-                if postLikeList[post["postId"] as! String]?.objectForKey(uid) != nil{
-                    cellForPost.isLiked = true
-                    cellForPost.likeButtonOutlet.setImage(UIImage(named: "like-1"), forState: .Normal)
+            if let _ = post["postId"] as? String{
+                if postLikeList[(post["postId"] as? String)!]?.count == nil{
                 }else{
-                    cellForPost.isLiked = false
-                    cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
+                    //          設定愛心圖案
+                    if postLikeList[post["postId"] as! String]?.objectForKey(uid) != nil{
+                        cellForPost.isLiked = true
+                        cellForPost.likeButtonOutlet.setImage(UIImage(named: "like-1"), forState: .Normal)
+                    }else{
+                        cellForPost.isLiked = false
+                        cellForPost.likeButtonOutlet.setImage(UIImage(named: "like"), forState: .Normal)
+                    }
+                    likeNum = String(postLikeList[post["postId"] as! String]!.count!)
+                    cellForPost.likeNum = postLikeList[post["postId"] as! String]!.count!
                 }
-                likeNum = String(postLikeList[post["postId"] as! String]!.count!)
-                cellForPost.likeNum = postLikeList[post["postId"] as! String]!.count!
             }
             //          設定日曆圖案
             if post["activityDate"] != nil{
@@ -312,13 +350,14 @@ extension UserDetailViewController:UITableViewDataSource{
             
             
             
-            let userUid = post["uid"] as! String
-            if userDict[userUid] != nil{
-                let user = userDict[userUid]! as User
-                cellForPost.postNameLable.text = user.name
-                cellForPost.postUserImage.sd_setImageWithURL(user.photoUrl!)
-            }else{
-                return cellForPost
+            if let userUid = post["uid"] as? String{
+                if userDict[userUid] != nil{
+                    let user = userDict[userUid]! as User
+                    cellForPost.postNameLable.text = user.name
+                    cellForPost.postUserImage.sd_setImageWithURL(user.photoUrl!)
+                }else{
+                    getUser(userUid)
+                }
             }
             cellForPost.spinnerView.hidden = true
             spinnerView.hidden = true

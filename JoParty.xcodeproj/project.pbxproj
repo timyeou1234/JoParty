@@ -25,6 +25,12 @@
 		6B18DBE21D33AAD800AC40D7 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B18DBE11D33AAD800AC40D7 /* JoinViewController.swift */; };
 		6B18DBE61D33B25600AC40D7 /* JoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B18DBE41D33B25600AC40D7 /* JoinTableViewCell.swift */; };
 		6B18DBE71D33B25600AC40D7 /* JoinTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B18DBE51D33B25600AC40D7 /* JoinTableViewCell.xib */; };
+		6BB703D11D3A328D00406E63 /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB703D01D3A328D00406E63 /* GroupViewController.swift */; };
+		6BB703D51D3A3CD400406E63 /* GroupUserListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB703D31D3A3CD400406E63 /* GroupUserListTableViewCell.swift */; };
+		6BB703D61D3A3CD400406E63 /* GroupUserListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BB703D41D3A3CD400406E63 /* GroupUserListTableViewCell.xib */; };
+		6BB703D81D3BCA3400406E63 /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB703D71D3BCA3400406E63 /* NewGroupViewController.swift */; };
+		6BB703DA1D3BD30900406E63 /* AddUserToGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB703D91D3BD30900406E63 /* AddUserToGroupViewController.swift */; };
+		6BB703DC1D3BD64700406E63 /* MyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB703DB1D3BD64700406E63 /* MyGroup.swift */; };
 		6BE8BBEB1D2275F100B1F326 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE8BBEA1D2275F100B1F326 /* CurrentUser.swift */; };
 		6BE8BBEE1D23B0CD00B1F326 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE8BBED1D23B0CD00B1F326 /* UserDetailViewController.swift */; };
 		6BE8BBF11D24F7D000B1F326 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE8BBF01D24F7D000B1F326 /* Post.swift */; };
@@ -54,6 +60,12 @@
 		6B18DBE11D33AAD800AC40D7 /* JoinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		6B18DBE41D33B25600AC40D7 /* JoinTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinTableViewCell.swift; sourceTree = "<group>"; };
 		6B18DBE51D33B25600AC40D7 /* JoinTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JoinTableViewCell.xib; sourceTree = "<group>"; };
+		6BB703D01D3A328D00406E63 /* GroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		6BB703D31D3A3CD400406E63 /* GroupUserListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupUserListTableViewCell.swift; sourceTree = "<group>"; };
+		6BB703D41D3A3CD400406E63 /* GroupUserListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupUserListTableViewCell.xib; sourceTree = "<group>"; };
+		6BB703D71D3BCA3400406E63 /* NewGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
+		6BB703D91D3BD30900406E63 /* AddUserToGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddUserToGroupViewController.swift; sourceTree = "<group>"; };
+		6BB703DB1D3BD64700406E63 /* MyGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyGroup.swift; sourceTree = "<group>"; };
 		6BE8BBEA1D2275F100B1F326 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		6BE8BBED1D23B0CD00B1F326 /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		6BE8BBF01D24F7D000B1F326 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -114,6 +126,7 @@
 				6BE8BBEC1D23B09500B1F326 /* UserDetail */,
 				6BE8BBE91D2275C100B1F326 /* Login */,
 				6B0D797C1D1FCB2B00DDCB47 /* Post */,
+				6BB703D21D3A329500406E63 /* Group */,
 				6B0D796B1D1E9AAA00DDCB47 /* Assets.xcassets */,
 				6B0D796D1D1E9AAA00DDCB47 /* LaunchScreen.storyboard */,
 				6B0D79701D1E9AAA00DDCB47 /* Info.plist */,
@@ -167,6 +180,18 @@
 			name = Join;
 			sourceTree = "<group>";
 		};
+		6BB703D21D3A329500406E63 /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				6BB703D01D3A328D00406E63 /* GroupViewController.swift */,
+				6BB703D31D3A3CD400406E63 /* GroupUserListTableViewCell.swift */,
+				6BB703D41D3A3CD400406E63 /* GroupUserListTableViewCell.xib */,
+				6BB703D71D3BCA3400406E63 /* NewGroupViewController.swift */,
+				6BB703D91D3BD30900406E63 /* AddUserToGroupViewController.swift */,
+			);
+			name = Group;
+			sourceTree = "<group>";
+		};
 		6BE8BBE91D2275C100B1F326 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				6BE8BBEA1D2275F100B1F326 /* CurrentUser.swift */,
+				6BB703DB1D3BD64700406E63 /* MyGroup.swift */,
 				6BE8BBF21D250C8500B1F326 /* User.swift */,
 				6BE8BBF01D24F7D000B1F326 /* Post.swift */,
 			);
@@ -266,6 +292,7 @@
 				6B0D796F1D1E9AAA00DDCB47 /* LaunchScreen.storyboard in Resources */,
 				6B18DBE71D33B25600AC40D7 /* JoinTableViewCell.xib in Resources */,
 				6B0D79801D1FD50400DDCB47 /* PostTableViewCell.xib in Resources */,
+				6BB703D61D3A3CD400406E63 /* GroupUserListTableViewCell.xib in Resources */,
 				6B0D79A71D21173300DDCB47 /* GoogleService-Info.plist in Resources */,
 				6B0D796C1D1E9AAA00DDCB47 /* Assets.xcassets in Resources */,
 				6B18DBBC1D2CC3C500AC40D7 /* CommentTableViewCell.xib in Resources */,
@@ -333,17 +360,22 @@
 				6B0D797E1D1FCBB500DDCB47 /* PostWallViewController.swift in Sources */,
 				6B0D79621D1E9AAA00DDCB47 /* AppDelegate.swift in Sources */,
 				6BE8BBF11D24F7D000B1F326 /* Post.swift in Sources */,
+				6BB703DA1D3BD30900406E63 /* AddUserToGroupViewController.swift in Sources */,
+				6BB703DC1D3BD64700406E63 /* MyGroup.swift in Sources */,
 				6BE8BBEB1D2275F100B1F326 /* CurrentUser.swift in Sources */,
 				6B18DBE61D33B25600AC40D7 /* JoinTableViewCell.swift in Sources */,
+				6BB703D11D3A328D00406E63 /* GroupViewController.swift in Sources */,
 				6BE8BBF31D250C8500B1F326 /* User.swift in Sources */,
 				6B18DBBF1D333F7000AC40D7 /* NewActivityDateViewController.swift in Sources */,
 				6B0D796A1D1E9AAA00DDCB47 /* JoinMe2TheParty.xcdatamodeld in Sources */,
 				6BE8BBF61D27B53A00B1F326 /* PostCommentTableViewCell.swift in Sources */,
 				6B18DBBB1D2CC3C500AC40D7 /* CommentTableViewCell.swift in Sources */,
 				6B18DBB61D2B8C4C00AC40D7 /* CommentViewController.swift in Sources */,
+				6BB703D81D3BCA3400406E63 /* NewGroupViewController.swift in Sources */,
 				6BE8BC261D2A56ED00B1F326 /* NewActivityViewController.swift in Sources */,
 				6B0D79A91D2125CA00DDCB47 /* LoginViewController.swift in Sources */,
 				6B18DBE21D33AAD800AC40D7 /* JoinViewController.swift in Sources */,
+				6BB703D51D3A3CD400406E63 /* GroupUserListTableViewCell.swift in Sources */,
 				6B0D797B1D1FC8FB00DDCB47 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

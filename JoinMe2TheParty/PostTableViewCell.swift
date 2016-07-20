@@ -21,6 +21,7 @@ class PostTableViewCell: UITableViewCell {
     weak var showCommentDelegate:ShowCommentDelegate?
     weak var likeThisPostDelegate:LikeThisPostDelegate?
     
+    @IBOutlet weak var isJoinedImageView: UIImageView!
     var cellSection:Int?
     var isLiked:Bool?
     var likeNum:Int = 0

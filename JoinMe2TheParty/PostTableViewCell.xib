@@ -131,22 +131,31 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lmh-WB-5Jr">
-                                <rect key="frame" x="446.5" y="113.5" width="28.5" height="13.5"/>
+                                <rect key="frame" x="446" y="113" width="28.5" height="13.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark_filled-1" translatesAutoresizingMaskIntoConstraints="NO" id="h5u-eR-80W">
+                                <rect key="frame" x="435" y="65" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="PYh-hr-3nx"/>
+                                    <constraint firstAttribute="width" constant="40" id="yf2-1h-3TC"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ZvU-jz-V7K" secondAttribute="bottom" constant="1.5" id="0HN-pD-m4P"/>
                             <constraint firstAttribute="trailing" secondItem="eL1-hX-M1s" secondAttribute="trailing" id="1ox-85-oa7"/>
+                            <constraint firstAttribute="trailing" secondItem="h5u-eR-80W" secondAttribute="trailing" constant="8" id="2KQ-hz-vva"/>
                             <constraint firstItem="ZvU-jz-V7K" firstAttribute="leading" secondItem="bQ9-tm-nOH" secondAttribute="leading" id="5NG-lB-9eW"/>
                             <constraint firstItem="ltd-zN-Yem" firstAttribute="top" secondItem="fiS-pE-Obx" secondAttribute="bottom" constant="9" id="5cr-0d-5zd"/>
                             <constraint firstItem="fiS-pE-Obx" firstAttribute="top" secondItem="bfh-O3-zy0" secondAttribute="bottom" constant="5" id="7QZ-Zb-EMp"/>
                             <constraint firstItem="xzJ-wK-kff" firstAttribute="top" secondItem="bQ9-tm-nOH" secondAttribute="top" id="8oB-wU-9xD"/>
                             <constraint firstItem="eL1-hX-M1s" firstAttribute="baseline" secondItem="ZvU-jz-V7K" secondAttribute="baseline" id="Bw7-qt-LLb"/>
                             <constraint firstItem="ZvU-jz-V7K" firstAttribute="top" secondItem="ltd-zN-Yem" secondAttribute="bottom" constant="5" id="C1L-08-U3f"/>
+                            <constraint firstItem="lmh-WB-5Jr" firstAttribute="top" secondItem="h5u-eR-80W" secondAttribute="bottom" constant="8.5" id="Cip-Qa-RhR"/>
                             <constraint firstAttribute="trailing" secondItem="xzJ-wK-kff" secondAttribute="trailing" id="JnT-qr-E2i"/>
                             <constraint firstItem="fiS-pE-Obx" firstAttribute="leading" secondItem="bQ9-tm-nOH" secondAttribute="leading" constant="9" id="K3Z-u4-vmh"/>
                             <constraint firstAttribute="bottom" secondItem="U4a-iD-Lz2" secondAttribute="bottom" constant="8" id="KM5-RY-lw0"/>
@@ -188,6 +197,7 @@
                 <outlet property="commentsNumberLable" destination="lmh-WB-5Jr" id="foU-SG-XkV"/>
                 <outlet property="contextLable" destination="fiS-pE-Obx" id="cZd-mR-9sR"/>
                 <outlet property="dateButtonView" destination="U4a-iD-Lz2" id="5bR-WK-TMu"/>
+                <outlet property="isJoinedImageView" destination="h5u-eR-80W" id="Imj-fN-Vdf"/>
                 <outlet property="likeButtonOutlet" destination="ltd-zN-Yem" id="Ft5-VH-Ofb"/>
                 <outlet property="likeNumLable" destination="iRO-Zu-AnV" id="FhG-JW-OO9"/>
                 <outlet property="postNameLable" destination="StM-5W-gYG" id="Cmd-Uh-1vC"/>
@@ -201,6 +211,7 @@
     </objects>
     <resources>
         <image name="calendar" width="25" height="25"/>
+        <image name="checkmark_filled-1" width="75" height="75"/>
         <image name="like" width="75" height="75"/>
     </resources>
 </document>

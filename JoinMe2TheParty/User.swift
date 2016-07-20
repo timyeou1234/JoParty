@@ -13,5 +13,6 @@ class User{
     var name:String?
     var email:String?
     var photoUrl:NSURL?
-    
+    var groupId = [String]()
+    var activityWillJoin = [String]()
 }

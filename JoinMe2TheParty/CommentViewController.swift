@@ -187,7 +187,7 @@ extension CommentViewController:DoCommentDelegate, CommentLikeThisPostDelegate, 
             inputTextView.hidden = false
         }else{
             inputTextView.hidden = true
-            if inputTextField != " " {
+            if inputTextField != "" {
                 let dataRef = FIRDatabase.database().reference()
                 let comment: [String : String!] = ["context": inputTextField.text, "uid": uid, "commentId": String(commentDict.count)]
                 let childUpdates = ["/Post/\(postId!)/Comment/\(commentDict.count)": comment]
